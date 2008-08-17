@@ -25,9 +25,10 @@ set :deploy_to, "/var/www/apps/#{application}"
 # Login user for ssh.
 set :user, "deploy"
 set :runner, "deploy"
+set :admin_runner, "deploy"
 
 set :scm, :git
-set :repository, "git@github.com:theill/weight.git"
+set :repository, "git@github.com:theill/#{application}.git"
 set :branch, "master"
 set :repository_cache, "git_cache"
 #currently fails on cap 2.3.0  set :deploy_via, :remote_cache
