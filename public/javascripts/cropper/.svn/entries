@@ -1,0 +1,96 @@
+8
+
+dir
+441
+https://subversion.dk:5443/svn/gorpris/trunk/site/public/javascripts/cropper
+https://subversion.dk:5443/svn/gorpris
+
+
+
+2008-05-19T10:04:24.471297Z
+410
+peter
+
+
+svn:special svn:externals svn:needs-lock
+
+marqueeHoriz.gif
+file
+
+
+
+
+2006-10-30T17:58:26.000000Z
+9b4c27fccf817923f59b78fa6099c376
+2008-05-19T10:04:24.471297Z
+410
+peter
+has-props
+
+licence.txt
+file
+
+
+
+
+2006-10-30T17:58:26.000000Z
+5a8f07f2f1668e580a2cdb16f0b1ab9f
+2008-05-19T10:04:24.471297Z
+410
+peter
+
+cropper.css
+file
+
+
+
+
+2006-10-30T17:58:26.000000Z
+d14497afc98bbb588763481e5527063f
+2008-05-19T10:04:24.471297Z
+410
+peter
+
+tests
+dir
+
+marqueeVert.gif
+file
+
+
+
+
+2006-10-30T17:58:26.000000Z
+2b2adfe6df6517f146b5b7c5b86eda42
+2008-05-19T10:04:24.471297Z
+410
+peter
+has-props
+
+cropper.js
+file
+
+
+
+
+2006-10-30T17:58:28.000000Z
+90a9dcb2104168403c4849d2507c791f
+2008-05-19T10:04:24.471297Z
+410
+peter
+
+lib
+dir
+
+cropper.uncompressed.js
+file
+
+
+
+
+2006-10-30T17:58:26.000000Z
+ec4eaaf19d92f9bf8d8b9d27928cce5c
+2008-05-19T10:04:24.471297Z
+410
+peter
+

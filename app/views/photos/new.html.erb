@@ -1,0 +1,13 @@
+<h1>Trin 1</h1>
+<h2>Overfør billede</h2>
+
+<% form_for(@photo, :html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+		<%= f.file_field :uploaded_data %>
+  </p>
+  <p>
+    <%= f.submit "Overfør billede" %> eller <%= link_to 'tilbage', photos_path %>
+  </p>
+<% end %>

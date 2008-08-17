@@ -1,0 +1,56 @@
+<h1>Trin 2</h1>
+
+<h2>Klip billedet til</h2>
+
+<script type="text/javascript" language="javascript">
+	Event.observe(window, 'load', function() {
+		new Cropper.Img(
+			'photo-image', {
+				ratioDim: {
+					x: 70, 
+					y: 90
+				},
+				displayOnInit: true,
+				onEndCrop: onEndCrop
+			});
+		});
+		
+	function onEndCrop(coords, dimensions) {
+		$('x1').value = coords.x1;
+		$('y1').value = coords.y1;
+		$('x2').value = coords.x2;
+		$('y2').value = coords.y2;
+		$('width').value = dimensions.width;
+		$('height').value = dimensions.height;
+	}
+</script>
+
+<%= image_tag @photo.public_filename(:large), :id => 'photo-image' %>
+<%# image_tag @picture.public_filename(:cropped) if File.exists?(@picture.full_filename(:cropped)) %>
+
+<div class="imgCrop_wrap">
+</div>
+
+<% form_for(@photo) do |f| %>
+	<%= hidden_field_tag 'x1' %>
+	<%= hidden_field_tag 'y1' %>
+	<%= hidden_field_tag 'x2' %>
+	<%= hidden_field_tag 'y2' %>
+	<%= hidden_field_tag 'width' %>
+	<%= hidden_field_tag 'height' %>
+	
+	<%= f.submit 'Klip billede' %> eller <%= link_to 'tilbage', photos_path %>
+<% end %>
+
+<p>
+	Politiet har følgende krav til billeder der skal benyttes til pas:<br />
+	- være 35 x 45 mm og hovedet skal være 25 - 35 mm i højden<br />
+	- være nyt<br />
+	- være fremstillet på almindeligt tyndt fotopapir<br />
+	- ikke være stemplet, hullet eller på anden måde beskadiget<br />
+	- have tydelig kontrast mellem motiv og baggrund<br />
+	- ingen skygger på baggrunden<br />
+	- være i sort/ hvid eller farve (gengives i s/ h)<br />
+	- være taget i siden fra profil, således at begge øjne og højre øre er synlige<br />
+</p>
+

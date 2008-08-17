@@ -1,0 +1,13 @@
+<h1>Trin 3</h1>
+
+<h2>Get billede lokalt</h2>
+
+<p>
+	Vi har nu oprettet et billede til dig.
+</p>
+
+<%= image_tag formatted_photo_path(@photo, 'jpg') %>
+
+<p>
+	<%= link_to "Hent ned lokalt", :action => :download %>
+</p>

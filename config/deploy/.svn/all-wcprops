@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/progressive/!svn/ver/232/campaigns/trunk/site/config/deploy
+END
+production.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/progressive/!svn/ver/231/campaigns/trunk/site/config/deploy/production.rb
+END
+staging.rb
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/progressive/!svn/ver/232/campaigns/trunk/site/config/deploy/staging.rb
+END
