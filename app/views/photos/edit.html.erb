@@ -25,7 +25,7 @@
 	}
 </script>
 
-<%= image_tag @photo.public_filename(:large), :id => 'photo-image' %>
+<%= image_tag @photo.public_filename(:thumbnail), :id => 'photo-image' %>
 <%# image_tag @picture.public_filename(:cropped) if File.exists?(@picture.full_filename(:cropped)) %>
 
 <div class="imgCrop_wrap">
@@ -53,4 +53,3 @@
 	- være i sort/ hvid eller farve (gengives i s/ h)<br />
 	- være taget i siden fra profil, således at begge øjne og højre øre er synlige<br />
 </p>
-

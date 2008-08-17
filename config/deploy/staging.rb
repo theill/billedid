@@ -18,11 +18,23 @@ set :apache_proxy_servers, 1
 set :mongrel_servers, 1
 set :mongrel_port, apache_proxy_port
 
-namespace(:deploy) do
+namespace :deploy do
   desc "Restart a passenger hosted RoR app"
   task :restart, :roles => :app do
   run <<-EOF
 cd #{deploy_to}/current/tmp && touch #{deploy_to}/current/tmp/restart.txt
 EOF
+  end
+end
+
+# override mongrel tasks
+namespace :mongrel do
+  namespace :cluster do
+    task :configure, :roles => :app do
+      # do nothing
+    end
+    task :restart, :roles => :app do
+      run "cd #{deploy_to}/current/tmp && touch #{deploy_to}/current/tmp/restart.txt"
+    end
   end
 end

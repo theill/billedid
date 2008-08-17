@@ -14,10 +14,12 @@ class PhotosController < ApplicationController
   # GET /photos/1.xml
   def show
     @photo = Photo.find(params[:id])
+    
+    @photo.generate
 
     respond_to do |format|
       format.html # show.html.erb
-      format.jpg  { render_preview }
+      format.jpg  { render_preview(@photo) }
       format.xml  { render :xml => @photo }
     end
   end
@@ -93,14 +95,12 @@ class PhotosController < ApplicationController
   def download
     @photo = Photo.find(params[:id])
     
-    send_file @photo.preview_filename, :type => 'image/jpg', :disposition => 'attachment'
+    send_file @photo.full_filename(:final), :type => 'image/jpg', :disposition => 'attachment'
   end
   
   private
   
-  def render_preview
-    preview = @photo.generate_preview
-    
-    send_file @photo.preview_filename, :type => 'image/jpg', :disposition => 'inline'
+  def render_preview(p)
+    send_file p.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
   end
 end
