@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.xml
   def index
-    @photos = Photo.find(:all)
+    @photos = Photo.all(:conditions => {:parent_id => nil})
 
     respond_to do |format|
       format.html # index.html.erb

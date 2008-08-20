@@ -1,13 +1,21 @@
-<h1>Trin<span>1</span></h1>
+<h1>Trin <span>1</span></h1>
 <span id="slogan2">Overfør billede</span>
 
 <% form_for(@photo, :html => { :multipart => true }) do |f| %>
-  <%= f.error_messages %>
+	<%= f.error_messages %>
 
   <p>
 		<%= f.file_field :uploaded_data %>
   </p>
+	
   <p>
-    <%= f.submit "Overfør billede" %> eller <%= link_to 'tilbage', photos_path %>
+    <%= f.submit "Overfør billede" %>
   </p>
+<% end %>
+
+<% content_for :help do -%>
+	<h3 class="first">Hvad er det?</h3>
+	<p>Med <b>billedID</b> har du mulighed for at lave dine
+		pasfoto gratis.</p>
+	
 <% end %>

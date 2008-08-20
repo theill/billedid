@@ -22,14 +22,12 @@ Released   : 20080425
 
 <div id="header">
 	<div id="header_inner">
-		<h1><span>billed</span>id</h1>
+		<h1><a href="/"><span>billed</span>id</a></h1>
 		<div id="slogan">lav dine egne pasfotos gratis</div>
 	</div>
 </div>
 
 <div id="main">
-
-	<p style="color: green"><%= flash[:notice] %></p>
 
 	<div id="lcol">
 		<div id="menu">
@@ -68,6 +66,8 @@ Released   : 20080425
 	<div id="rcol">
 		<div id="rcontent">
 		
+			<p style="color: green"><%= flash[:notice] %></p>
+
 			<%= yield  %>
 
 			<!-- <div class="box">

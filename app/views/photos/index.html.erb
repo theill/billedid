@@ -3,35 +3,20 @@
 <table>
   <tr>
     <th>Name</th>
-    <th>Description</th>
     <th>Size</th>
-    <th>Content type</th>
-    <th>Filename</th>
     <th>Height</th>
     <th>Width</th>
-    <th>Parent</th>
-    <th>Thumbnail</th>
   </tr>
 
 <% for photo in @photos %>
   <tr>
-    <td><%=h photo.name %><br />
-	<%=h photo.public_filename %></td>
-    <td><%=h photo.description %></td>
+    <td><%=h photo.public_filename %></td>
     <td><%=h photo.size %></td>
-    <td><%=h photo.content_type %></td>
-    <td><%=h photo.filename %></td>
     <td><%=h photo.height %></td>
     <td><%=h photo.width %></td>
-    <td><%=h photo.parent_id %></td>
-    <td><%=h photo.thumbnail %></td>
     <td><%= link_to 'Show', photo %></td>
     <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New photo', new_photo_path %>
