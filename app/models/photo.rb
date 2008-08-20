@@ -26,6 +26,10 @@ class Photo < ActiveRecord::Base
 #     super
 #   end
 # 
+
+  def exists?
+    File.exists?(self.full_filename(:final))
+  end
   
   def generate
     # see https://asp.photoprintit.de/microsite/10021/quality.php
@@ -64,6 +68,7 @@ class Photo < ActiveRecord::Base
     image = MiniMagick::Image.from_file(self.full_filename(:thumbnail))
     image.crop "#{width}x#{height}+#{x1}+#{y1}"
     image.write(self.full_filename(:cropped))
+    image.run_command "mogrify -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
   end
   
 end

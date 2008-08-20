@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
   def show
     @photo = Photo.find(params[:id])
     
-    @photo.generate
+    @photo.generate unless @photo.exists?
 
     respond_to do |format|
       format.html # show.html.erb
@@ -61,14 +61,15 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
 
-    # crop *and replace* existing image
-    @photo.crop(params[:width], params[:height], params[:x1], params[:y1])
-
-    # save to force thumbnails to be updated
-    @photo.save
-    
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
+
+        # crop *and replace* existing image
+        @photo.crop(params[:width], params[:height], params[:x1], params[:y1])
+
+        # save to force thumbnails to be updated
+        @photo.save
+
         format.html { redirect_to @photo }
         format.xml  { head :ok }
       else

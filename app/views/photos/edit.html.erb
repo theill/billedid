@@ -37,7 +37,8 @@
 	<%= hidden_field_tag 'y2' %>
 	<%= hidden_field_tag 'width' %>
 	<%= hidden_field_tag 'height' %>
-
+	
+	<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
 	<%= f.submit 'Klip billede' %>
 <% end %>
 
