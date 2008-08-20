@@ -1,6 +1,5 @@
-<h1>Trin 2</h1>
-
-<h2>Klip billedet til</h2>
+<h1>Trin <span>2</span></h1>
+<span id="slogan2">Klip billedet til</span>
 
 <script type="text/javascript" language="javascript">
 	Event.observe(window, 'load', function() {
@@ -38,18 +37,29 @@
 	<%= hidden_field_tag 'y2' %>
 	<%= hidden_field_tag 'width' %>
 	<%= hidden_field_tag 'height' %>
-	
-	<%= f.submit 'Klip billede' %> eller <%= link_to 'tilbage', photos_path %>
+
+	<%= f.submit 'Klip billede' %>
 <% end %>
 
-<p>
-	Politiet har følgende krav til billeder der skal benyttes til pas:<br />
-	- være 35 x 45 mm og hovedet skal være 25 - 35 mm i højden<br />
-	- være nyt<br />
-	- være fremstillet på almindeligt tyndt fotopapir<br />
-	- ikke være stemplet, hullet eller på anden måde beskadiget<br />
-	- have tydelig kontrast mellem motiv og baggrund<br />
-	- ingen skygger på baggrunden<br />
-	- være i sort/ hvid eller farve (gengives i s/ h)<br />
-	- være taget i siden fra profil, således at begge øjne og højre øre er synlige<br />
-</p>
+<% content_for :menu do -%>
+	<%= link_to "Tilbage", root_path %>
+<% end %>
+
+<% content_for :help do -%>
+	<h3>Politiets krav</h3>
+	<p>
+		Politiet har følgende krav til billeder der skal benyttes til pas:
+	</p>
+
+	<ul>
+		<li>være 35 x 45 mm og hovedet skal være 25 - 35 mm i højden</li>
+		<li>være nyt</li>
+		<li>være fremstillet på almindeligt tyndt fotopapir</li>
+		<li>ikke være stemplet, hullet eller på anden måde beskadiget</li>
+		<li>have tydelig kontrast mellem motiv og baggrund</li>
+		<li>ingen skygger på baggrunden</li>
+		<li>være i sort/ hvid eller farve (gengives i s/ h)</li>
+		<li>være taget i siden fra profil, således at begge øjne og højre øre er synlige</li>
+	</ul>
+
+<% end %>

@@ -47,7 +47,6 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        flash[:notice] = 'Photo was successfully created.'
         format.html { redirect_to edit_photo_path(@photo) }
         format.xml  { render :xml => @photo, :status => :created, :location => @photo }
       else
@@ -70,7 +69,6 @@ class PhotosController < ApplicationController
     
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
-        flash[:notice] = 'Photo was successfully updated.'
         format.html { redirect_to @photo }
         format.xml  { head :ok }
       else

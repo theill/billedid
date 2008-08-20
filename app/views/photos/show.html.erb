@@ -1,6 +1,5 @@
-<h1>Trin 3</h1>
-
-<h2>Gem billede lokalt på din maskine</h2>
+<h1>Trin <span>3</span></h1>
+<span id="slogan2">Gem billede lokalt på din maskine</span>
 
 <p>
 	Vi har nu oprettet et billede til dig.
@@ -8,6 +7,9 @@
 
 <%= image_tag formatted_photo_path(@photo, 'jpg') %>
 
-<p>
-	<%= link_to "Gem billede", :action => :download %>
-</p>
+<% content_for :menu do -%>
+	<p>
+		<%= link_to "Tilbage", edit_photo_path(@photo) %>
+		<%= link_to "Gem billede", :action => :download %>
+	</p>
+<% end %>
