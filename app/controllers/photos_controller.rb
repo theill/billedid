@@ -14,7 +14,7 @@ class PhotosController < ApplicationController
   # GET /photos/1.xml
   def show
     @photo = Photo.find(params[:id])
-    
+
     @photo.generate unless @photo.exists?
 
     respond_to do |format|
