@@ -1,4 +1,5 @@
-require 'railsmachine/recipes'
+#require 'railsmachine/recipes'
+require 'gazebomachine/recipes'
 
 set :stages, %w(staging production)
 set :default_stage, 'staging'
