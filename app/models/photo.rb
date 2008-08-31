@@ -80,6 +80,12 @@ class Photo < ActiveRecord::Base
     image.crop "#{width}x#{height}+#{x1}+#{y1}"
     image.write(self.full_filename(:cropped))
     image.run_command "mogrify -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
+    
+    # save to force thumbnails to be updated
+    self.save
+    
+    # remove final image in case it has already been generated
+    File.delete self.full_filename(:final) if exists?
   end
   
 end
