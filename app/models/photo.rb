@@ -28,7 +28,7 @@ class Photo < ActiveRecord::Base
 # 
 
   def exists?
-    File.exists?(self.full_filename(:final))
+    File.exists?(self.full_filename(:final)) && !Rails.env.development?
   end
   
   def generate
@@ -42,26 +42,33 @@ class Photo < ActiveRecord::Base
     # converted to pixels with 300dpi (on a 13x10cm => 13.6x10.2cm => 1536x1024 layer) this is 
     # 1536 / 13.6 = 112.941176 pixels/cm
     # 1024 / 10.2 = 100.392157 pixels/cm
-    # 3.5 cm * 112.941176 pixels = 395.294116 => 395
-    # 4.5 cm * 100.392157 pixels = 451.764706 => 452
+    # 4.5 cm * 112.941176 pixels = 508.235292 => 508
+    # 3.5 cm * 100.392157 pixels = 351.372549 => 351
     # - alternate
     # 1mm = 0.0393700787inches => 35mm = 1.37795275inches
     # 1.37795275inches * 300dpi => 413.385826 pixels
     # 45mm = 1.77165354inches
     # 1.77165354inches * 300dpi => 531.496062
     
+    # width, height = 508, 351
+
+    # 1600 / 13 = 123.076923 pixels/cm => * 3.5 = 430.76923 pixels
+    # 1200 / 10 = 120 pixels/cm => * 4.5 = 540 pixels
+    # width, height = 431, 540
     width, height = 413, 531
     
-    page_weight, page_height = 1606, 1205 # based on 13.6x10.2
+    page_weight, page_height = 1600, 1200 # based on 13.6x10.2
     
     # TODO: convert to tiff og png to avoid losing quality when calling composite multiple times
     
+    border = 64
+    
     image = MiniMagick::Image.from_file(fn)
-    image.run_command "convert -size #{page_weight}x#{page_height} xc:grey -font Arial -pointsize 72 -fill xc:black -draw \"text 900,100 'billedID.dk'\" -draw \"text 900,200 'gratis pasfoto'\" #{final}"
-    image.run_command "composite -geometry #{height}x#{width}+24+24 #{fn} #{final} #{final}"
-    image.run_command "composite -geometry #{height}x#{width}+#{width}+24 #{fn} #{final} #{final}"
-    image.run_command "composite -geometry #{height}x#{width}+24+#{height} #{fn} #{final} #{final}"
-    image.run_command "composite -geometry #{height}x#{width}+#{width}+#{height} #{fn} #{final} #{final}"
+    image.run_command "convert -size #{page_weight}x#{page_height} xc:'#eeeeee' -font Arial -pointsize 72 -fill xc:'#999999' -draw \"text 1000,200 'billedID.dk'\" -draw \"text 1000,300 'gratis pasfoto'\" -pointsize 48 -draw \"text 1000,800 'endnu en service fra'\" -draw \"text 1000,850 'http://gazeboapps.com'\" #{final}"
+    image.run_command "composite -geometry #{width}x#{height}+#{border}+#{border} #{fn} #{final} #{final}"
+    image.run_command "composite -geometry #{width}x#{height}+#{width+border}+#{border} #{fn} #{final} #{final}"
+    image.run_command "composite -geometry #{width}x#{height}+#{border}+#{height+border} #{fn} #{final} #{final}"
+    image.run_command "composite -geometry #{width}x#{height}+#{width+border}+#{height+border} #{fn} #{final} #{final}"
     
     # do preview of it
     image = MiniMagick::Image.from_file(final)
