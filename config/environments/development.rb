@@ -15,3 +15,6 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+# I (peter) needs this in order for it to find "identify" and "convert" commands
+ENV['PATH'] = '/opt/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'

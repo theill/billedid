@@ -1,0 +1,24 @@
+#photo-image-canvas {
+	padding: 8px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+
+#photo-image {
+	
+}
+
+#photo-preview {
+	width: 70px;
+	height: 90px;
+	position: absolute;
+	left: 15px;
+	top: 246px;
+}
+
+#passport {
+	position: relative;
+	background-image: url(/images/passport-preview.jpg);
+	width: 273px;
+	height: 380px;
+}

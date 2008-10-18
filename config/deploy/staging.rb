@@ -11,7 +11,7 @@ role :scm, domain
 
 set :apache_server_name, domain
 
-set :apache_server_aliases, %w{billedid.gzb.dk staging.billedid.gzb.dk staging.billedid.dk billedid.dk www.billedid.dk}
+set :apache_server_aliases, %w{billedid.gzb.dk staging.billedid.gzb.dk staging.billedid.dk billedid.dk www.billedid.dk staging.billedid.gazeboapps.com}
 set :apache_proxy_port, 8190
 set :apache_proxy_servers, 1
 

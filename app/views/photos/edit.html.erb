@@ -1,10 +1,47 @@
 <h1>Trin <span>2</span> af 3</h1>
 <span id="slogan2">Klip billedet til</span>
 
+<p>
+	Marker billedet med musen. Propertionerne vil blive bibeholdt i den korrekte
+	størrelse.
+	
+	Flyt markeringen over dit billede, saa hovedet og hage er korrekt placeret 
+	inden i rammen.
+</p>
+
+<img src="/images/pas-eksempel.jpg" />
+
+<div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
+<%# image_tag @picture.public_filename(:cropped) if File.exists?(@picture.full_filename(:cropped)) %>
+
+TODO: embed this preview into a passport - it would look nice and users would be able to relate
+to a real-time use of the image. at least it could be funny. something like the below.
+
+<div id="passport">
+	<div id="photo-preview">
+	
+	</div>
+</div>
+
+<% form_for(@photo) do |f| %>
+	<%= hidden_field_tag 'x1' %>
+	<%= hidden_field_tag 'y1' %>
+	<%= hidden_field_tag 'x2' %>
+	<%= hidden_field_tag 'y2' %>
+	<%= hidden_field_tag 'width' %>
+	<%= hidden_field_tag 'height' %>
+	
+	<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
+	<%= f.submit 'Klip billede' %>
+<% end %>
+
 <script type="text/javascript" language="javascript">
 	Event.observe(window, 'load', function() {
-		new Cropper.Img(
+		new Cropper.ImgWithPreview(
 			'photo-image', {
+				previewWrap: 'photo-preview',
+				minWidth: 70,
+				minHeight: 90,
 				ratioDim: {
 					x: 70, 
 					y: 90
@@ -24,27 +61,9 @@
 	}
 </script>
 
-<%= image_tag @photo.public_filename(:thumbnail), :id => 'photo-image' %>
-<%# image_tag @picture.public_filename(:cropped) if File.exists?(@picture.full_filename(:cropped)) %>
-
-<div class="imgCrop_wrap">
-</div>
-
-<% form_for(@photo) do |f| %>
-	<%= hidden_field_tag 'x1' %>
-	<%= hidden_field_tag 'y1' %>
-	<%= hidden_field_tag 'x2' %>
-	<%= hidden_field_tag 'y2' %>
-	<%= hidden_field_tag 'width' %>
-	<%= hidden_field_tag 'height' %>
-	
-	<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
-	<%= f.submit 'Klip billede' %>
-<% end %>
-
 <% content_for :menu do -%>
 	<%= link_to "Tilbage", root_path %>
-<% end %>
+<% end -%>
 
 <% content_for :help do -%>
 	<h3>Politiets krav</h3>
@@ -63,4 +82,4 @@
 		<li>være taget i siden fra profil, således at begge øjne og højre øre er synlige</li>
 	</ul>
 
-<% end %>
+<% end -%>

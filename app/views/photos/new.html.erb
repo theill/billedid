@@ -1,6 +1,30 @@
 <h1>Trin <span>1</span> af 3</h1>
 <span id="slogan2">Overfør billede</span>
 
+<p>
+	Start med at tage et billede af personen mod en hvid væg i Jeres
+	hus/lejlighed.
+</p>
+
+<p>
+	<img src="/images/step1-example.png" />
+</p>
+
+<p>
+	Sørg for, at følgende krav er opfyldt:
+	<ul>
+   <li>Ingen skygger i ansiget eller væggen</li>
+   <li>Ensfarvet (hvid) væg uden dekorationer eller mønstre</li>
+   <li>Naturligt ansigts-udtryk dvs åbne øjne, lukket mund, let smil</li>
+   <li>Godt med rum rundt om hovedet</li>
+	</ul>
+</p>
+
+<p>
+	Når billedet er taget, overfører du det fra dit kamera til din computer og 
+	angiver lokationen til det i nedestående felt.
+</p>
+
 <% form_for(@photo, :html => { :multipart => true }) do |f| %>
 	<%= f.error_messages %>
 

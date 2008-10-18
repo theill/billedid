@@ -15,6 +15,7 @@ Released   : 20080425
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<title>billedid</title>
   <%= stylesheet_link_tag '/curiouslygreen/default.css' %>
+	<%= stylesheet_link_tag 'application' %>
 	<%= javascript_include_tag :defaults, 'lowpro-min', 'builder', :cache => true %>
 	<script type="text/javascript" src="/javascripts/cropper/cropper.js"></script>
 </head>
@@ -32,33 +33,11 @@ Released   : 20080425
 	<div id="lcol">
 		<div id="menu">
 			<%= yield :menu -%>
-			<!-- <ul>
-				<li><a href="#">Site Homepage<span></span></a></li>
-				<li><a href="#">My Blog<span></span></a></li>
-				<li><a href="#">Portfolio<span></span></a></li>
-				<li><a href="#">About Me<span></span></a></li>
-				<li><a href="#">Contact Me<span></span></a></li>
-			</ul> -->
 		</div>
 		<div id="menu_end"></div>
 
 		<div id="lcontent">
-			<!-- <h3 class="first">Interesting.<span>Stuff</span></h3>
-			<ul class="divided">
-				<li class="first"><a href="#">Tincidunt aliquam</a></li>
-				<li><a href="#">Cursus lorem nulla</a></li>
-				<li><a href="#">Nunc ante elit</a></li>
-				<li><a href="#">Tincidunt aliquam</a></li>
-				<li><a href="#">Cursus sed tempus</a></li>
-			</ul> -->
-			
 			<%= yield :help -%>
-		
-			<!-- <h3>Aliquam.<span>Cursus</span></h3>
-			<p><a href="#">Sollicitudin sed</a> arcu et vivamus viverra. Nullam turpis. Vestibulum Nullam turpis vestibulum.</p>	
-			<div class="divider"></div>
-
-			<p><a href="#">Vestibulum veroeros</a> sed arcu et vivamus viverra lorem ipsum dolor sit amet dolore nulla facilisi.</p> -->
 		</div>
 
 	</div>
@@ -69,39 +48,13 @@ Released   : 20080425
 			<p style="color: green"><%= flash[:notice] %></p>
 
 			<%= yield  %>
-
-			<!-- <div class="box">
-				<div class="box_inner">	
-					<div class="captioned_image">
-						<img src="images/pic.jpg" alt="Figure 1" />
-						<div>Fig 1. Obscure?</div>
-					</div>
-					<h2>Some obscure headline</h2>
-					<p>Sollicitudin et, arcu. Vivamus viverra. Nullam turpis. Vestibulum sed etiam. Lorem ipsum sit amet dolore. Nulla facilisi. Sed tortor.  Nullam turpis. Vestibulum sed etiam. Lorem ipsum sit amet dolore. Nulla facilisi. Sed tortor.</p>
-				</div>
-			</div> -->
-
-			<!-- <h3>Obscure.<span>Explanations</span></h3>
-			<p><strong>Curiously Green</strong>, a free, fully standards-compliant CSS template designed by <a href="http://www.nodethirtythree.com/">NodeThirtyThree</a> for <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>, released for free under the <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5</a> license. The photos in this design are from <a href="http://www.pdphoto.org/">PDPhoto.org</a>. You're free to use this template for anything as long as you link back to <a href="http://www.freecsstemplates.org/">my site</a>. Enjoy :)</p>
-
-			<p>Be sure to check out some of my commercial work over at <a href="http://www.4templates.com/?aff=n33">4Templates</a>.</p>
-			<div class="divider"></div>
-			<div class="summary">Lorem ipsum dolor sit amet nullam dignissim</div>
-
-			<h3>Tincidunt.Sed.<span>Vestibulum</span></h3>
-			<p>
-				Quisque suscipit, quam vel aliquet tincidunt, eros nisi ultrices urna, a interdum est purus vitae leo.
-				Pellentesque a lectus et tortor tincidunt <a href="#">dignissim etiam</a>. Aliquam erat volutpat. Quisque
-				risus nunc, eleifend gravida, ullamcorper non, gravida ut, nulla.
-			</p> -->
-
 		</div>
 	</div>
 
 </div>
 
 <div id="footer">
-	&copy; 2008 Someone. All rights reserved.
+	&copy; 2008 Gazebo ApS. All rights reserved.
 </div>
 
 
