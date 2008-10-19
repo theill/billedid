@@ -63,8 +63,21 @@ class Photo < ActiveRecord::Base
     
     border = 64
     
+    # remove final image in case it has already been generated
+    File.delete fn if exists?
+    File.delete final if exists?
+    
+    bg = ["/Users/theill/svn.subversion.dk/billedid/public/images/1674_azoresleaf_1600x1200.jpg",
+      "/Users/theill/svn.subversion.dk/billedid/public/images/1678_walenstadtberg_1600x1200.jpg",
+      "/Users/theill/svn.subversion.dk/billedid/public/images/1690_playkiss_1600x1200.jpg",
+      "/Users/theill/svn.subversion.dk/billedid/public/images/1696_afterrain_1600x1200.jpg",
+      "/Users/theill/svn.subversion.dk/billedid/public/images/1698_betweenthemountains_1600x1200.jpg"].rand
+    
     image = MiniMagick::Image.from_file(fn)
+    # image.resize "1600x1200"
     image.run_command "convert -size #{page_weight}x#{page_height} xc:'#eeeeee' -font Arial -pointsize 72 -fill xc:'#999999' -draw \"text 1000,200 'billedID.dk'\" -draw \"text 1000,300 'gratis pasfoto'\" -pointsize 48 -draw \"text 1000,800 'endnu en service fra'\" -draw \"text 1000,850 'http://gazeboapps.com'\" #{final}"
+    image.run_command "composite -compose atop #{bg} #{final} #{final}"
+    
     image.run_command "composite -geometry #{width}x#{height}+#{border}+#{border} #{fn} #{final} #{final}"
     image.run_command "composite -geometry #{width}x#{height}+#{width+border}+#{border} #{fn} #{final} #{final}"
     image.run_command "composite -geometry #{width}x#{height}+#{border}+#{height+border} #{fn} #{final} #{final}"

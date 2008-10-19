@@ -15,10 +15,8 @@ class PhotosController < ApplicationController
   def show
     @photo = Photo.find(params[:id])
 
-    @photo.generate unless @photo.exists?
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { @photo.generate unless @photo.exists? }
       format.jpg  { render_preview(@photo) }
       format.xml  { render :xml => @photo }
     end
