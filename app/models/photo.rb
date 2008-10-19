@@ -67,11 +67,11 @@ class Photo < ActiveRecord::Base
     File.delete fn if exists?
     File.delete final if exists?
     
-    bg = ["/Users/theill/svn.subversion.dk/billedid/public/images/1674_azoresleaf_1600x1200.jpg",
-      "/Users/theill/svn.subversion.dk/billedid/public/images/1678_walenstadtberg_1600x1200.jpg",
-      "/Users/theill/svn.subversion.dk/billedid/public/images/1690_playkiss_1600x1200.jpg",
-      "/Users/theill/svn.subversion.dk/billedid/public/images/1696_afterrain_1600x1200.jpg",
-      "/Users/theill/svn.subversion.dk/billedid/public/images/1698_betweenthemountains_1600x1200.jpg"].rand
+    bg = ["#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
+      "#{RAILS_ROOT}/public/images/1678_walenstadtberg_1600x1200.jpg",
+      "#{RAILS_ROOT}/public/images/1690_playkiss_1600x1200.jpg",
+      "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
+      "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].rand
     
     image = MiniMagick::Image.from_file(fn)
     # image.resize "1600x1200"
