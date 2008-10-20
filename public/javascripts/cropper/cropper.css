@@ -43,10 +43,30 @@
 .imgCrop_clickArea {
 	width: 100%;
 	height: 100%;
-	background-color: #FFF;
+/*	background-color: #FFF;
 	opacity: 0.01;
 	filter:alpha(opacity=01);
-}
+*/}
+
+	.imgCrop_markTop {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 10%;
+		background-color: red;
+		opacity: 0.5;
+		filter:alpha(opacity=5);
+	}
+
+	.imgCrop_markBottom {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 10%;
+		background-color: red;
+		opacity: 0.5;
+		filter:alpha(opacity=5);
+	}
 
 .imgCrop_marqueeHoriz {
 	position: absolute;

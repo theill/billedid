@@ -1,5 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :photos, :member => {:download => :get}
+  
+  map.namespace :admin do |admin|
+    admin.resources :photos
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
 

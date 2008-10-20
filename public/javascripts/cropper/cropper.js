@@ -104,7 +104,7 @@ this.handleS=Builder.node("div",{"class":_f+"handle "+_f+"handleS"});
 this.handleSW=Builder.node("div",{"class":_f+"handle "+_f+"handleSW"});
 this.handleW=Builder.node("div",{"class":_f+"handle "+_f+"handleW"});
 this.handleNW=Builder.node("div",{"class":_f+"handle "+_f+"handleNW"});
-this.selArea=Builder.node("div",{"class":_f+"selArea"},[Builder.node("div",{"class":_f+"marqueeHoriz "+_f+"marqueeNorth"},[Builder.node("span")]),Builder.node("div",{"class":_f+"marqueeVert "+_f+"marqueeEast"},[Builder.node("span")]),Builder.node("div",{"class":_f+"marqueeHoriz "+_f+"marqueeSouth"},[Builder.node("span")]),Builder.node("div",{"class":_f+"marqueeVert "+_f+"marqueeWest"},[Builder.node("span")]),this.handleN,this.handleNE,this.handleE,this.handleSE,this.handleS,this.handleSW,this.handleW,this.handleNW,Builder.node("div",{"class":_f+"clickArea"})]);
+this.selArea=Builder.node("div",{"class":_f+"selArea"},[Builder.node("div",{"class":_f+"marqueeHoriz "+_f+"marqueeNorth"},[Builder.node("span")]),Builder.node("div",{"class":_f+"marqueeVert "+_f+"marqueeEast"},[Builder.node("span")]),Builder.node("div",{"class":_f+"marqueeHoriz "+_f+"marqueeSouth"},[Builder.node("span")]),Builder.node("div",{"class":_f+"marqueeVert "+_f+"marqueeWest"},[Builder.node("span")]),this.handleN,this.handleNE,this.handleE,this.handleSE,this.handleS,this.handleSW,this.handleW,this.handleNW,Builder.node("div",{"class":_f+"clickArea"},[Builder.node("div",{"class":_f+"markTop"}), Builder.node("div",{"class":_f+"markBottom"})])]);
 this.imgWrap.appendChild(this.img);
 this.imgWrap.appendChild(this.dragArea);
 this.dragArea.appendChild(this.selArea);

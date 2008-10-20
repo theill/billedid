@@ -1,14 +1,4 @@
 class PhotosController < ApplicationController
-  # GET /photos
-  # GET /photos.xml
-  def index
-    @photos = Photo.all(:conditions => {:parent_id => nil})
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @photos }
-    end
-  end
 
   # GET /photos/1
   # GET /photos/1.xml
@@ -61,7 +51,6 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
-
         # crop *and replace* existing image
         @photo.crop(params[:width], params[:height], params[:x1], params[:y1])
 
@@ -87,14 +76,15 @@ class PhotosController < ApplicationController
   end
   
   def download
-    @photo = Photo.find(params[:id])
+    photo = Photo.find(params[:id])
     
-    send_file @photo.full_filename(:final), :type => 'image/jpg', :disposition => 'attachment'
+    send_file photo.full_filename(:final), :type => 'image/jpg', :disposition => 'attachment'
   end
   
   private
   
-  def render_preview(p)
-    send_file p.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
+  def render_preview(photo)
+    send_file photo.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
   end
+  
 end
