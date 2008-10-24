@@ -14,12 +14,12 @@ ActiveRecord::Schema.define(:version => 20080820234626) do
   create_table "photos", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "size",         :limit => 11
+    t.integer  "size"
     t.string   "content_type"
     t.string   "filename"
-    t.integer  "height",       :limit => 11
-    t.integer  "width",        :limit => 11
-    t.integer  "parent_id",    :limit => 11
+    t.integer  "height"
+    t.integer  "width"
+    t.integer  "parent_id"
     t.string   "thumbnail"
     t.datetime "created_at"
     t.datetime "updated_at"

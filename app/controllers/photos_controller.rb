@@ -80,6 +80,12 @@ class PhotosController < ApplicationController
     
     send_file photo.full_filename(:final), :type => 'image/jpg', :disposition => 'attachment'
   end
+
+  def closekeepalive
+    response.headers['Connection'] = 'Close'
+    render :text => ''
+  end
+
   
   private
   
