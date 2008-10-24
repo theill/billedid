@@ -1,12 +1,8 @@
-<h1>Trin <span>3</span> af 3</h1>
-<span id="slogan2">Gem billede lokalt på din maskine</span>
-
+<h1>Trin <span>3</span> af 3 - Dit BilledId er færdigt!</h1>
 <p>
-	Vi har nu oprettet et billede til dig.
+	Husk at <%= link_to "hente dit BilledId ned på din computer", :action => :download %>.
 </p>
-
-<%= image_tag formatted_photo_path(@photo, 'jpg') %>
-
+<%= link_to( image_tag formatted_photo_path(@photo, 'jpg'), :action => :download ) %>
 <% content_for :menu do -%>
 	<p>
 		<%= link_to "Tilbage", edit_photo_path(@photo) %>
