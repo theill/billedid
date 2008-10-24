@@ -13,7 +13,7 @@ Event.onReady( function(){
 	pageTracker._trackPageview();
 });
 
-Event.onReady( function() {
+Event.observe(window, 'load', function() {
 	if ($('photo-image')){
 		new Cropper.ImgWithPreview(
 			'photo-image', {
