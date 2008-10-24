@@ -5,7 +5,8 @@
 		<title>billedid</title>
 	  	<%= stylesheet_link_tag '/curiouslygreen/default.css' %>
 		<%= stylesheet_link_tag 'application' %>
-		<%= javascript_include_tag 'prototype', 'effects', 'dragdrop', 'controls', 'lowpro', 'builder', 'cropper/cropper', 'application', :cache => true %>
+		<%= javascript_include_tag :defaults, 'lowpro', 'builder', :cache => true %>
+		<%= javascript_include_tag 'cropper/cropper' %>
 		<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
 	</head>
 	<body>
