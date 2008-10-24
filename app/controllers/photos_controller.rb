@@ -1,9 +1,9 @@
 class PhotosController < ApplicationController
+  before_filter :lookup_photo, :only => [:show, :edit, :update, :destroy]
 
   # GET /photos/1
   # GET /photos/1.xml
   def show
-    @photo = Photo.find(params[:id])
 
     respond_to do |format|
       format.html { @photo.generate unless @photo.exists? }
@@ -25,7 +25,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
-    @photo = Photo.find(params[:id])
+    
   end
 
   # POST /photos
@@ -35,7 +35,10 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to edit_photo_path(@photo) }
+        format.html do 
+          session[:photo_id] = @photo.id
+          redirect_to edit_photo_path(@photo)
+        end
         format.xml  { render :xml => @photo, :status => :created, :location => @photo }
       else
         format.html { render :action => "new" }
@@ -47,8 +50,6 @@ class PhotosController < ApplicationController
   # PUT /photos/1
   # PUT /photos/1.xml
   def update
-    @photo = Photo.find(params[:id])
-
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
         # crop *and replace* existing image
@@ -66,7 +67,6 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.xml
   def destroy
-    @photo = Photo.find(params[:id])
     @photo.destroy
 
     respond_to do |format|
@@ -91,6 +91,10 @@ class PhotosController < ApplicationController
   
   def render_preview(photo)
     send_file photo.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
+  end
+  
+  def lookup_photo
+    @photo = Photo.find(session[:photo_id])
   end
   
 end
