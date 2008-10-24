@@ -17,7 +17,7 @@ class Photo < ActiveRecord::Base
     #       :canvas => '1600x1200'
     # }
   
-  named_scope :obsoleted, lambda { { :conditions => ['created_at < ?', -3.days.from_now] } }
+  named_scope :obsoleted, lambda { { :conditions => ['created_at < ? AND parent_id IS NULL', -2.hours.from_now] } }
 		
   validates_as_attachment
 
