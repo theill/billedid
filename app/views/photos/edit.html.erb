@@ -9,10 +9,9 @@
 	inden i rammen.
 </p>
 
-<img src="/images/pas-eksempel.jpg" />
+<%= image_tag 'pas-eksempel.jpg', :alt => 'Pas eksempel'%>
 
 <div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
-<%# image_tag @picture.public_filename(:cropped) if File.exists?(@picture.full_filename(:cropped)) %>
 
 TODO: embed this preview into a passport - it would look nice and users would be able to relate
 to a real-time use of the image. at least it could be funny. something like the below.
@@ -34,32 +33,6 @@ to a real-time use of the image. at least it could be funny. something like the 
 	<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
 	<%= f.submit 'Klip billede' %>
 <% end %>
-
-<script type="text/javascript" language="javascript">
-	Event.observe(window, 'load', function() {
-		new Cropper.ImgWithPreview(
-			'photo-image', {
-				previewWrap: 'photo-preview',
-				minWidth: 70,
-				minHeight: 90,
-				ratioDim: {
-					x: 70, 
-					y: 90
-				},
-				displayOnInit: true,
-				onEndCrop: onEndCrop
-			});
-		});
-		
-	function onEndCrop(coords, dimensions) {
-		$('x1').value = coords.x1;
-		$('y1').value = coords.y1;
-		$('x2').value = coords.x2;
-		$('y2').value = coords.y2;
-		$('width').value = dimensions.width;
-		$('height').value = dimensions.height;
-	}
-</script>
 
 <% content_for :menu do -%>
 	<%= link_to "Tilbage", root_path %>
