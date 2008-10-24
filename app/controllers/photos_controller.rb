@@ -53,8 +53,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
         # crop *and replace* existing image
-        @photo.crop(params[:width], params[:height], params[:x1], params[:y1])
-
+        @photo.crop(params[:width].to_i, params[:height].to_i, params[:x1].to_i, params[:y1].to_i)
         format.html { redirect_to @photo }
         format.xml  { head :ok }
       else

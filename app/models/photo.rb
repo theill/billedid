@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
 	has_attachment :content_type => :image, 
 		:storage => :file_system,
 		:processor => 'MiniMagick',
-		:max_size => 10.megabytes,
+		:max_size => 5.megabytes,
 		:thumbnails => {
 		  :thumbnail => '480>'
 		}
@@ -98,8 +98,16 @@ class Photo < ActiveRecord::Base
   # montage -size 400x400 null: '../photo_store/*_orig.jpg' null: -thumbnail 200x200 -bordercolor Lavender -background black +polaroid  -resize 30%  -background LightGray -geometry -10+2  -tile x1    polaroid_overlap.jpg
   
   def crop(width, height, x1, y1)
-    image = MiniMagick::Image.from_file(self.full_filename(:thumbnail))
-    image.crop "#{width}x#{height}+#{x1}+#{y1}"
+    image = MiniMagick::Image.from_file(self.full_filename)
+		thumbnail = self.thumbnails.first # NASTY: must fix
+		ratio = self.width / thumbnail.width.to_f
+		
+		destination_width		= (width * ratio).to_i
+		destination_height	= (height * ratio).to_i
+		destination_x1			= (x1 * ratio).to_i
+		destination_y1			= (y1 * ratio).to_i
+		
+    image.crop "#{destination_width}x#{destination_height}+#{destination_x1}+#{destination_y1}"
     image.write(self.full_filename(:cropped))
     image.run_command "mogrify -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
     
