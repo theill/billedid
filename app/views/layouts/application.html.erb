@@ -5,7 +5,8 @@
 		<title>billedid</title>
 	  	<%= stylesheet_link_tag '/curiouslygreen/default.css' %>
 		<%= stylesheet_link_tag 'application' %>
-		<%= javascript_include_tag :defaults, 'lowpro', 'builder', 'cropper/cropper' %>
+		<%= javascript_include_tag :defaults, 'lowpro', 'builder', 'cropper/cropper', :cache => true %>
+		<%= javascript_include_tag 'cropper/cropper' %>
 	</head>
 	<body>
 		<div id="header">
