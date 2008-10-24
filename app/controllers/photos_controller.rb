@@ -4,7 +4,6 @@ class PhotosController < ApplicationController
   # GET /photos/1
   # GET /photos/1.xml
   def show
-    @photo = Photo.find(params[:id])
 
     respond_to do |format|
       format.html { @photo.generate unless @photo.exists? }
@@ -26,7 +25,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
-    @photo = Photo.find(params[:id])
+    
   end
 
   # POST /photos
@@ -51,8 +50,6 @@ class PhotosController < ApplicationController
   # PUT /photos/1
   # PUT /photos/1.xml
   def update
-    @photo = Photo.find(params[:id])
-
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
         # crop *and replace* existing image
@@ -70,7 +67,6 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.xml
   def destroy
-    @photo = Photo.find(params[:id])
     @photo.destroy
 
     respond_to do |format|
