@@ -1,4 +1,5 @@
 class PhotosController < ApplicationController
+  before_filter :lookup_photo, :only => [:show, :edit, :update, :destroy]
 
   # GET /photos/1
   # GET /photos/1.xml
@@ -35,7 +36,10 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        format.html { redirect_to edit_photo_path(@photo) }
+        format.html do 
+          session[:photo_id] = @photo.id
+          redirect_to edit_photo_path(@photo)
+        end
         format.xml  { render :xml => @photo, :status => :created, :location => @photo }
       else
         format.html { render :action => "new" }
@@ -85,6 +89,10 @@ class PhotosController < ApplicationController
   
   def render_preview(photo)
     send_file photo.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
+  end
+  
+  def lookup_photo
+    @photo = Photo.find(session[:photo_id])
   end
   
 end
