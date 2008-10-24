@@ -50,9 +50,11 @@
 
 	.imgCrop_markTop {
 		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 10%;
+		top: 5%;
+		left: 10%;
+		width: 80%;
+		height: 5%;
+		min-height: 5px;
 		background-color: red;
 		opacity: 0.5;
 		filter:alpha(opacity=5);
@@ -60,9 +62,11 @@
 
 	.imgCrop_markBottom {
 		position: absolute;
-		bottom: 0;
-		width: 100%;
-		height: 10%;
+		bottom: 15%;
+		left: 10%;
+		width: 80%;
+		height: 5%;
+		min-height: 5px;
 		background-color: red;
 		opacity: 0.5;
 		filter:alpha(opacity=5);
