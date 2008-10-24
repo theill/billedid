@@ -1,8 +1,14 @@
 class Photo < ActiveRecord::Base
+	
+	def quality
+		75
+	end
+	
 	has_attachment :content_type => :image, 
 		:storage => :file_system,
 		:processor => 'MiniMagick',
 		:max_size => 5.megabytes,
+		:resize_to => '2000x2000>',
 		:thumbnails => {
 		  :thumbnail => '480>'
 		}
@@ -21,13 +27,12 @@ class Photo < ActiveRecord::Base
 		
   validates_as_attachment
 
-#   def resize_image(img, size)
-#     # Get rid of all colour profiles.  They take up a lot of space.
-#     img.strip
-#     img.quality 60
-#     super
-#   end
-# 
+  def resize_image(img, size)
+    # Get rid of all colour profiles.  They take up a lot of space.
+    img.strip
+    img.quality self.quality
+    super
+  end
 
   def exists?
     File.exists?(self.full_filename(:final)) && !Rails.env.development?
@@ -38,6 +43,7 @@ class Photo < ActiveRecord::Base
     # 1600x1200
     
     fn = self.full_filename(:cropped)
+		tiled = self.full_filename(:tiled)
     final = self.full_filename(:final)
     
     # requirements: each profile picture must be 35mm in width and 45mm in height
@@ -58,8 +64,9 @@ class Photo < ActiveRecord::Base
     # 1200 / 10 = 120 pixels/cm => * 4.5 = 540 pixels
     # width, height = 431, 540
     width, height = 413, 531
+		tiled_width, tiled_height = width * 2, height * 2
     
-    page_weight, page_height = 1600, 1200 # based on 13.6x10.2
+    page_width, page_height = 1600, 1200 # based on 13.6x10.2
     
     # TODO: convert to tiff og png to avoid losing quality when calling composite multiple times
     
@@ -73,17 +80,12 @@ class Photo < ActiveRecord::Base
       "#{RAILS_ROOT}/public/images/1678_walenstadtberg_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1690_playkiss_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
-      "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].rand
+      "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
+		
     
     image = MiniMagick::Image.from_file(fn)
-    # image.resize "1600x1200"
-    image.run_command "convert -size #{page_weight}x#{page_height} xc:'#eeeeee' -font Arial -pointsize 72 -fill xc:'#999999' -draw \"text 1000,200 'billedID.dk'\" -draw \"text 1000,300 'gratis pasfoto'\" -pointsize 48 -draw \"text 1000,800 'endnu en service fra'\" -draw \"text 1000,850 'http://gazeboapps.com'\" #{final}"
-    image.run_command "composite -compose atop #{bg} #{final} #{final}"
-    
-    image.run_command "composite -geometry #{width}x#{height}+#{border}+#{border} #{fn} #{final} #{final}"
-    image.run_command "composite -geometry #{width}x#{height}+#{width+border}+#{border} #{fn} #{final} #{final}"
-    image.run_command "composite -geometry #{width}x#{height}+#{border}+#{height+border} #{fn} #{final} #{final}"
-    image.run_command "composite -geometry #{width}x#{height}+#{width+border}+#{height+border} #{fn} #{final} #{final}"
+		image.run_command "convert -strip -quality #{self.quality} -size #{tiled_width}x#{tiled_height} tile:#{fn} #{tiled}"		
+		image.run_command "composite -strip -quality #{self.quality} -geometry #{tiled_width}x#{tiled_height}+#{border}+#{border} #{tiled} #{bg} #{final}"
     
     # do preview of it
     image = MiniMagick::Image.from_file(final)
@@ -109,10 +111,11 @@ class Photo < ActiveRecord::Base
 		
     image.crop "#{destination_width}x#{destination_height}+#{destination_x1}+#{destination_y1}"
     image.write(self.full_filename(:cropped))
-    image.run_command "mogrify -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
+    image.run_command "mogrify -strip -quality #{self.quality} -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
+		image.run_command "convert -strip -quality #{self.quality} -resize 413x531! #{self.full_filename(:cropped)} #{self.full_filename(:cropped)}" 
     
     # save to force thumbnails to be updated
-    self.save
+    # self.save
     
     # remove final image in case it has already been generated
     File.delete self.full_filename(:final) if exists?
