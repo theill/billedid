@@ -1,6 +1,9 @@
 class PhotosController < ApplicationController
   before_filter :lookup_photo, :only => [:show, :edit, :update]
 
+  session :cookie_only => false, :only => :create
+  skip_before_filter :verify_authenticity_token, :only => :create
+
   # GET /photos/1
   # GET /photos/1.xml
   def show
@@ -33,15 +36,26 @@ class PhotosController < ApplicationController
     @photo = Photo.new(params[:photo])
 
     respond_to do |format|
-      if @photo.save
-        format.html do 
+      if params[:Filedata]
+        @photo = Photo.new(:swf_uploaded_data => params[:Filedata])
+        @photo.save!
+
+        format.html do
           session[:photo_id] = @photo.id
-          redirect_to edit_photo_path(@photo)
+          render :text => edit_photo_path(@photo)
         end
-        format.xml  { render :xml => @photo, :status => :created, :location => @photo }
+        format.xml  { render :nothing => true }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
+        if @photo.save
+          format.html do 
+            session[:photo_id] = @photo.id
+            redirect_to edit_photo_path(@photo)
+          end
+          format.xml  { render :xml => @photo, :status => :created, :location => @photo }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
@@ -76,17 +90,17 @@ class PhotosController < ApplicationController
 
   
   private
+  
   def render_preview(photo)
     send_file photo.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
   end
   
   def lookup_photo
-		if session[:photo_id].blank?
-			flash[:notice] = 'Dit BilledId blev ikke fundet. Systemet sletter automatisk gamle BilledID. Du kan lave et nyt BilledId med det samme.'
+    @photo = Photo.find(session[:photo_id]) unless session[:photo_id].blank?
+		unless @photo
+			flash[:notice] = 'Dit foto blev ikke fundet. Systemet sletter automatisk gamle fotos. Du kan lave et nyt med det samme.'
 			redirect_to root_url
-			return
 		end
-    @photo = Photo.find(session[:photo_id])
   end
   
 end

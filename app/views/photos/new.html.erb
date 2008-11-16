@@ -1,3 +1,50 @@
+<script type='text/javascript'>
+  var swfu;
+
+  window.onload = function () {
+    swfu = new SWFUpload({
+      upload_url : '<%= photos_path -%>?_swfupload_demo_session=<%= u session.session_id %>',
+      flash_url : '/flash/swfupload.swf',
+
+			// Button settings
+			// button_image_url: "/images/TestImageNoText_65x29.png",	// Relative to the Flash file
+			button_width: "100",
+			button_height: "29",
+			button_placeholder_id: "spanButtonPlaceHolder",
+			button_text: '<span class="theFont">Upload gfx</span>',
+			button_text_left_padding: 12,
+			button_text_top_padding: 3,
+
+      file_size_limit : '10000',
+      file_types : '*.jpg',
+      file_types_description : 'JPG Images',
+      file_upload_limit : '0',
+			custom_settings : {
+				progressTarget : "fsUploadProgress"
+			},
+
+      file_queue_error_handler : fileQueueError,
+      file_dialog_complete_handler : fileDialogComplete,
+      upload_progress_handler : uploadProgress,
+      upload_error_handler : uploadError,
+      upload_success_handler : uploadSuccess,
+      upload_complete_handler : uploadComplete,
+
+			post_params : {
+				authenticity_token : '<%= u form_authenticity_token -%>',
+			},
+
+      custom_settings : { 
+        upload_target : 'divFileProgressContainer',
+      },
+
+      debug: false
+
+    });
+  };
+</script>
+
+
 <h1>Trin <span>1</span> af 3</h1>
 <span id="slogan2">Overfør billede</span>
 <p>
@@ -7,6 +54,25 @@
 <p>
 	<%= image_tag 'step1-example.png', :alt => 'Eksempel på billede til beskæring' %>
 </p>
+
+<% form_for(@photo, :html => { :multipart => true }) do |f| %>
+	<%= f.error_messages %>
+	
+  <p>
+    <%= f.file_field :uploaded_data %>
+  </p>
+  
+  <p>
+    <%= f.submit "Overfør billede" %>
+  </p>
+	
+	<!-- <div id="divFileProgressContainer" style="height: 75px;">
+		<div id="divStatus"></div>
+		<div>
+			<span id="spanButtonPlaceHolder"></span>
+		</div>
+	</div> -->
+<% end %>
 
 <p>
 	Sørg for, at følgende krav er opfyldt:
@@ -22,18 +88,6 @@
 	Når billedet er taget, overfører du det fra dit kamera til din computer og 
 	angiver lokationen til det i nedestående felt.
 </p>
-
-<% form_for(@photo, :html => { :multipart => true }) do |f| %>
-	<%= f.error_messages %>
-
-  <p>
-		<%= f.file_field :uploaded_data %>
-  </p>
-	
-  <p>
-    <%= f.submit "Overfør billede" %>
-  </p>
-<% end %>
 
 <% content_for :help do -%>
 	<h3 class="first">Hvad er det?</h3>

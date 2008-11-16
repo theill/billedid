@@ -1,9 +1,5 @@
 class Photo < ActiveRecord::Base
 	
-	def quality
-		75
-	end
-	
 	has_attachment :content_type => :image, 
 		:storage => :file_system,
 		:processor => 'MiniMagick',
@@ -26,6 +22,18 @@ class Photo < ActiveRecord::Base
   named_scope :obsoleted, lambda { { :conditions => ['created_at < ? AND parent_id IS NULL', -2.hours.from_now] } }
 		
   validates_as_attachment
+
+	def quality
+		75
+	end
+
+  # Map file extensions to mime types.
+  # Thanks to bug in Flash 8 the content type is always set to application/octet-stream.
+  # From: http://blog.airbladesoftware.com/2007/8/8/uploading-files-with-swfupload
+  def swf_uploaded_data=(data)
+    data.content_type = MIME::Types.type_for(data.original_filename)
+    self.uploaded_data = data
+  end
 
   def resize_image(img, size)
     # Get rid of all colour profiles.  They take up a lot of space.
@@ -76,12 +84,12 @@ class Photo < ActiveRecord::Base
     File.delete fn if exists?
     File.delete final if exists?
     
-    bg = ["#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
+    bg = ["#{RAILS_ROOT}/public/images/billedid-info.jpg",
+      "#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1678_walenstadtberg_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1690_playkiss_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
-		
     
     image = MiniMagick::Image.from_file(fn)
 		image.run_command "convert -strip -quality #{self.quality} -size #{tiled_width}x#{tiled_height} tile:#{fn} #{tiled}"		
@@ -118,7 +126,7 @@ class Photo < ActiveRecord::Base
     # self.save
     
     # remove final image in case it has already been generated
-    File.delete self.full_filename(:final) if exists?
+    File.delete(self.full_filename(:final)) if exists?
   end
   
 end
