@@ -36,26 +36,15 @@ class PhotosController < ApplicationController
     @photo = Photo.new(params[:photo])
 
     respond_to do |format|
-      if params[:Filedata]
-        @photo = Photo.new(:swf_uploaded_data => params[:Filedata])
-        @photo.save!
-
-        format.html do
+      if @photo.save
+        format.html do 
           session[:photo_id] = @photo.id
-          render :text => edit_photo_path(@photo)
+          redirect_to edit_photo_path(@photo)
         end
-        format.xml  { render :nothing => true }
+        format.xml  { render :xml => @photo, :status => :created, :location => @photo }
       else
-        if @photo.save
-          format.html do 
-            session[:photo_id] = @photo.id
-            redirect_to edit_photo_path(@photo)
-          end
-          format.xml  { render :xml => @photo, :status => :created, :location => @photo }
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
-        end
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
       end
     end
   end

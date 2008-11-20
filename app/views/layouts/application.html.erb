@@ -3,19 +3,15 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<title>billedid</title>
-	  	<%= stylesheet_link_tag '/curiouslygreen/default.css' %>
-		<%= stylesheet_link_tag 'application', 'swfupload' %>
+		<%= stylesheet_link_tag 'application' %>
 		<%= javascript_include_tag :defaults, 'lowpro', 'builder', :cache => true %>
 		<%= javascript_include_tag 'cropper/cropper' %>
 		<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
-		<%= javascript_include_tag 'swfupload', 'swfupload_handlers' %>
 	</head>
 	<body>
 		<div id="header">
-			<div id="header_inner">
-				<h1><a href="/"><span>billed</span>id</a></h1>
-				<div id="slogan">lav dine egne pasfotos gratis</div>
-			</div>
+			<h1><a href="/"><span>billed</span>id</a></h1>
+			<div id="slogan">lav dine egne pasfotos gratis</div>
 		</div>
 		<div id="main">
 			<div id="lcol">
@@ -30,12 +26,12 @@
 			<div id="rcol">
 				<div id="rcontent">
 					<p style="color: green"><%= flash[:notice] %></p>
-					<%= yield  %>
+					<%= yield %>
 				</div>
 			</div>
 		</div>
 		<div id="footer">
-			&copy; <%= link_to( 'Gazebo', 'http://gazeboapps.com') %>. Alle rettigheder forbeholdes. <%= link_to('Fortrolighed', about_privacy_path) %> | <%= link_to('blog', 'http://blog.gazeboapps.com') %>
+			&copy; 2008 <%= link_to( 'Gazebo', 'http://gazeboapps.com') %>. Alle rettigheder forbeholdes. <%= link_to('Fortrolighed', about_privacy_path) %> | <%= link_to('Blog', 'http://blog.gazeboapps.com') %>
 		</div>
 	</body>
 </html>

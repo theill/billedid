@@ -9,5 +9,4 @@ class Admin::PhotosController < ApplicationController
       format.xml  { render :xml => @photos }
     end
   end
-
 end

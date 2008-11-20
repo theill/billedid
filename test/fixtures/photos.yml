@@ -1,23 +1,12 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  description: MyText
-  size: 1
-  content_type: MyString
-  filename: MyString
-  height: 1
-  width: 1
-  parent_id: 1
-  thumbnail: MyString
-
-two:
-  name: MyString
-  description: MyText
-  size: 1
-  content_type: MyString
-  filename: MyString
-  height: 1
-  width: 1
-  parent_id: 1
-  thumbnail: MyString
+  name: peter
+  description: a picture of peter
+  size: 39623
+  content_type: image/jpeg
+  filename: peter.jpg
+  height: 351
+  width: 1031
+  parent_id: nil
+  thumbnail: nil
