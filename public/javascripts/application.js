@@ -1,14 +1,14 @@
-if ( /AppleWebKit|MSIE/.test( navigator.userAgent ) ) {
+if (/AppleWebKit|MSIE/.test(navigator.userAgent)) {
 	Event.addBehavior({
-		'form:submit' : function( e ){
-			if ( Event.element( e ).getElementsBySelector("input[file]") ) {
-				new Ajax.Request("/ping/close", { asynchronous:false });	
+		'form:submit' : function(e) {
+			if (Event.element(e).getElementsBySelector("input[file]")) {
+				new Ajax.Request("/ping/close", { asynchronous:false });
 			}
 	  }
 	});
 }
 
-Event.onReady( function(){
+Event.onReady(function() {
 	var pageTracker = _gat._getTracker("UA-869742-15");
 	pageTracker._trackPageview();
 });
