@@ -1,13 +1,13 @@
 <h1>Trin <span>3</span> af 3 - Dit foto er færdigt!</h1>
 
 <p>
-	Dit foto er nu færdigt og du kan  <%= link_to("hente det ned", :action => :download) %> 
+	Dit foto er nu færdigt og du kan <%= link_to("hente det ned", :action => :download) %> 
 	på din computer. Herefter	kan du printe det ud på din egen printer eller 
 	du kan bruge en online-fremkalde service såsom <a href="http://www.pixum.dk/" target="_blank">pixum</a> 
-	eller <a href="https://asp.photoprintit.de/microsite/10021/" target="_blank">Bilka fotoservice</a>
+	eller <a href="https://asp.photoprintit.de/microsite/10021/" target="_blank">Bilka fotoservice</a>.
 </p>
 
-<%= link_to(image_tag(formatted_photo_path(@photo, 'jpg')), :action => :download ) %>
+<%= link_to(image_tag(formatted_photo_path(@photo, 'jpg')), :action => :download) %>
 
 <% content_for :menu do -%>
 	<p>

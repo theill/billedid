@@ -9,7 +9,7 @@
 </p>
 
 <% form_for(@photo, :html => { :multipart => true }) do |f| %>
-	<%= f.error_messages %>
+	<!-- <%= f.error_messages %> -->
 	
   <p>
     <%= f.file_field :uploaded_data %>

@@ -32,7 +32,8 @@ set :scm, :git
 set :repository, "git@github.com:theill/#{application}.git"
 set :branch, "master"
 set :repository_cache, "git_cache"
-#currently fails on cap 2.3.0  set :deploy_via, :remote_cache
+#currently fails on cap 2.3.0  
+set :deploy_via, :remote_cache
 set :ssh_options, { :forward_agent => true }
 
 # Automatically symlink these directories from curent/public to shared/public.

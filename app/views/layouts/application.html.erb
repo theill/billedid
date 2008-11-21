@@ -25,7 +25,8 @@
 			</div>
 			<div id="rcol">
 				<div id="rcontent">
-					<p style="color: green"><%= flash[:notice] %></p>
+					<%= content_tag('div', flash[:error], :class => 'error') if flash[:error] %>
+					<%= content_tag('div', flash[:notice], :class => 'notice') if flash[:notice] %>
 					<%= yield %>
 				</div>
 			</div>

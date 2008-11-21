@@ -22,3 +22,15 @@
 	width: 273px;
 	height: 380px;
 }
+
+.error {
+	padding: 2em;
+	background-color: #c00;
+	border: #900;
+}
+
+.notice {
+	padding: 2em;
+	background-color: #0c0;
+	border: #090;
+}

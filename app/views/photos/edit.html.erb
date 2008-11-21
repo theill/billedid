@@ -13,14 +13,14 @@
 
 <div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
 
-TODO: embed this preview into a passport - it would look nice and users would be able to relate
+<!-- TODO: embed this preview into a passport - it would look nice and users would be able to relate
 to a real-time use of the image. at least it could be funny. something like the below.
 
 <div id="passport">
 	<div id="photo-preview">
 	
 	</div>
-</div>
+</div> -->
 
 <% form_for(@photo) do |f| %>
 	<%= hidden_field_tag 'x1' %>

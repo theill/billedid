@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
 		:storage => :file_system,
 		:processor => 'MiniMagick',
 		:max_size => 5.megabytes,
-		:resize_to => '2000x2000>',
+		:resize_to => '2000x1500>',
 		:thumbnails => {
 		  :thumbnail => '480>'
 		}

@@ -17,7 +17,7 @@ Event.observe(window, 'load', function() {
 	if ($('photo-image')){
 		new Cropper.ImgWithPreview(
 			'photo-image', {
-				previewWrap: 'photo-preview',
+/*				previewWrap: 'photo-preview',*/
 				minWidth: 70,
 				minHeight: 90,
 				ratioDim: {
