@@ -1,16 +1,17 @@
 <h1>Trin <span>1</span> af 3</h1>
-<span id="slogan2">Overfør billede</span>
+
+<%= render :partial => 'guide', :locals => { :step => 1 } %>
+
 <p>
 	Start med at tage et billede af personen mod en hvid væg i Jeres
 	hus/lejlighed.
 </p>
+
 <p>
 	<%= image_tag 'step1-example.png', :alt => 'Eksempel på billede til beskæring' %>
 </p>
 
 <% form_for(@photo, :html => { :multipart => true }) do |f| %>
-	<!-- <%= f.error_messages %> -->
-	
   <p>
     <%= f.file_field :uploaded_data %>
   </p>

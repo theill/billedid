@@ -1,7 +1,5 @@
 set :rails_env, "staging"
 
-set :mongrel_environment, rails_env
-
 set :domain, "#{rails_env}.billedid.gzb.dk"
 
 role :web, domain
@@ -10,13 +8,7 @@ role :db,  domain, :primary => true
 role :scm, domain
 
 set :apache_server_name, domain
-
 set :apache_server_aliases, %w{billedid.gzb.dk staging.billedid.gzb.dk staging.billedid.dk billedid.dk www.billedid.dk staging.billedid.gazeboapps.com}
-set :apache_proxy_port, 8190
-set :apache_proxy_servers, 1
-
-set :mongrel_servers, 1
-set :mongrel_port, apache_proxy_port
 
 namespace :deploy do
   desc "Restart a passenger hosted RoR app"

@@ -1,5 +1,7 @@
 <h1>Trin <span>3</span> af 3 - Dit foto er færdigt!</h1>
 
+<%= render :partial => 'guide', :locals => { :step => 3 } %>
+
 <p>
 	Dit foto er nu færdigt og du kan <%= link_to("hente det ned", :action => :download) %> 
 	på din computer. Herefter	kan du printe det ud på din egen printer eller 

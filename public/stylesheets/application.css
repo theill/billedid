@@ -34,3 +34,21 @@
 	background-color: #0c0;
 	border: #090;
 }
+
+#guide {
+	
+}
+
+	#guide td {
+		width: 33%;
+		height: 120px;
+		vertical-align: top;
+	}
+
+	#guide .active {
+		background-color: yellow;
+	}
+
+	#guide .previous {
+		background-color: gray;
+	}

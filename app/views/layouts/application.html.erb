@@ -3,9 +3,9 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<title>billedid - gratis pasfoto på fem minutter</title>
-		<meta name="description" content="Med billedid kan du gratis lave dine egne pasfoto på få minutter.">
+		<meta name="description" content="Med billedid kan du gratis lave dine egne pasfoto på få minutter">
 		<%= stylesheet_link_tag 'application' %>
-		<%= javascript_include_tag :defaults, 'lowpro', 'builder', 'cropper/cropper', :cache => true %>
+		<%= javascript_include_tag :defaults, 'lowpro', 'builder', 'dragdrop', 'cropper/cropper', :cache => false %>
 		<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
 	</head>
 	<body>
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<div id="footer">
-			&copy; 2008 <%= link_to( 'Gazebo', 'http://gazeboapps.com') %>. Alle rettigheder forbeholdes. <%= link_to('Fortrolighed', about_privacy_path) %> | <%= link_to('Blog', 'http://blog.gazeboapps.com') %>
+			&copy; 2008-<%= Date.today.year %> <%= link_to('Gazebo', 'http://gazeboapps.com') %>. Alle rettigheder forbeholdes. <%= link_to('Fortrolighed', about_privacy_path) %> | <%= link_to('Blog', 'http://blog.gazeboapps.com') %>
 		</div>
 	</body>
 </html>
