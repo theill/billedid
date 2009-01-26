@@ -1,16 +1,7 @@
 <div class="content">
 	<h1>Tilpas billedet</h1>
-	<p>
-		Marker billedet med musen. Propertionerne vil blive bibeholdt i den korrekte
-		størrelse.
-
-		Flyt markeringen over dit billede, saa hovedet og hage er korrekt placeret 
-		inden i rammen.
-	</p>
-
-	<%= image_tag 'pas-eksempel.jpg', :alt => 'Pas eksempel'%>
-
-	<div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
+	<p>Følg vejledningen i højre side og tilpas dit billede, så det overholder reglerne.</p>
+	
 
 	<!-- TODO: embed this preview into a passport - it would look nice and users would be able to relate
 	to a real-time use of the image. at least it could be funny. something like the below.
@@ -20,39 +11,41 @@
 	
 		</div>
 	</div> -->
-
-	<% form_for(@photo) do |f| %>
-		<div style="display: none">
-			<%= hidden_field_tag 'x1' %>
-			<%= hidden_field_tag 'y1' %>
-			<%= hidden_field_tag 'x2' %>
-			<%= hidden_field_tag 'y2' %>
-			<%= hidden_field_tag 'width' %>
-			<%= hidden_field_tag 'height' %>
-		</div>		
-		<fieldset>
-			<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
-		</fieldset>
-		<fieldset>
-			<%= f.submit 'Klip billede' %>
-		</fieldset>
-	<% end %>
-
-	<h3>Politiets krav</h3>
-	<p>
-		Politiet har følgende krav til billeder der skal benyttes til pas:
-	</p>
-
-	<ul>
-		<li>være 35 x 45 mm og hovedet skal være 25 - 35 mm i højden</li>
-		<li>være nyt</li>
-		<li>være fremstillet på almindeligt tyndt fotopapir</li>
-		<li>ikke være stemplet, hullet eller på anden måde beskadiget</li>
-		<li>have tydelig kontrast mellem motiv og baggrund</li>
-		<li>ingen skygger på baggrunden</li>
-		<li>være i sort/ hvid eller farve (gengives i s/ h)</li>
-		<li>være taget i siden fra profil, således at begge øjne og højre øre er synlige</li>
-	</ul>
+	
+	<div class="cols adjust_photo">
+		<div class="lcol">
+			<div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
+			<% form_for(@photo) do |f| %>
+				<div style="display: none">
+					<%= hidden_field_tag 'x1' %>
+					<%= hidden_field_tag 'y1' %>
+					<%= hidden_field_tag 'x2' %>
+					<%= hidden_field_tag 'y2' %>
+					<%= hidden_field_tag 'width' %>
+					<%= hidden_field_tag 'height' %>
+				</div>		
+				<fieldset>
+					<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
+				</fieldset>
+				<fieldset>
+					<%= f.submit 'Tilpas billede' %>
+				</fieldset>
+			<% end %>
+		</div>
+		<div class="rcol">
+			<p>
+				Flyt markeringen over dit billede, så hovede og hage er korrekt placeret 
+				i rammen. Du kan skifte størrelse på skabelonen ved at trække i hjørnerne.
+			</p>
+			<p>
+				<%= image_tag 'pas-eksempel.jpg', :alt => 'Pas eksempel'%>
+			</p>
+			<p>
+				Det endelige billede vil lavet med korrekte dimensioner.
+			</p>
+		</div>
+	</div>
+	
 
 </div>
 

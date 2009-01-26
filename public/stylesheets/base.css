@@ -15,6 +15,11 @@ body div.content fieldset {
 	margin: 0 0 1em;
 }
 
+body div.content a {
+	color: #3184c4;
+}
+
+
 body div#main div.content ul {
 	margin-left: 0;
 } 
@@ -57,7 +62,7 @@ div#header {
 		z-index: 10000;
 	}
 	
-		div#header ul.nl.active_step_1 {	background-position: 0 -117; }
+		div#header ul.nl.active_step_1 {	background-position: 0 -117px; }
 		div#header ul.nl.active_step_2 {	background-position: 0 -234px; }
 		div#header ul.nl.active_step_3 { background-position: 0 -351px; }
 	
@@ -102,7 +107,7 @@ div#main {
 	div#main div.content {
 		overflow: auto;
 	}
-
+	
 	div#main div.content div.lcol{
 		float: left;
 		margin-right: 6%;
@@ -113,10 +118,32 @@ div#main {
 		width: 57%;
 	}
 
+	div.cols {
+		overflow:auto;		
+	}
+
+	div#main div.content div.cols.adjust_photo div.lcol{
+		float: left;
+		margin-right: 32px;
+		width: 498px;
+	}
+	div#main div.content div.cols.adjust_photo div.rcol{
+		float: left;
+		width: 240px;
+		overflow: hidden;
+	}
+
 	#photo_uploaded_data {
 		max-width: 280px; /* damn you firefox, even IE6 can do something with this element */
 	}
 	
+	div#main div.content #photo-image-canvas {
+		padding: 8px;
+		width: 480px;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		margin: 0 0 1em;
+	}
 
 div#footer {
 	position:relative;
