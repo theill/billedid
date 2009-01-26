@@ -21,7 +21,7 @@
 	<body>
 		<div id="header">
 			<a href="/" class="home" title="BilledID.dk - Lav dit eget pasfoto på et øjeblik">
-				<img src="/images/logo.png" alt="BilledID.dk - Lav dit eget pasfoto på et øjeblik" height="124" width="352" />
+				<%= image_tag '/images/logo.png', :alt => "BilledID.dk - Lav dit eget pasfoto på et øjeblik", :size => '352x124' -%>
 			</a>
 			<%= render_top_menu( request.path, session ) %>
 		</div>
@@ -37,7 +37,7 @@
 			<div id="footer">
 				<%= link_to('<span>Gazebo</span>', 'http://gazeboapps.com', :class => 'logo', :rel => 'external', :title => 'Gazebo') %>
 				<div class="content">					
-					&copy; 2008&ndash;<%= Date.today.year %> <%= link_to 'Gazebo', 'http://gazeboapps.comn', :title => 'Gazebo' %>. Alle rettigheder forbeholdes.
+					&copy; 2008&ndash;<%= Date.today.year %> <%= link_to 'Gazebo', 'http://gazeboapps.com', :title => 'Gazebo' %>. Alle rettigheder forbeholdes.
 					<%= link_to( 'Fortrolighed', privacy_path, :class => 'privacy' ) %>
 				</div>
 			</div>
