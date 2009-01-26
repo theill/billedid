@@ -1,5 +1,5 @@
 html {
-	background: #dbf1f9 url(/images/backgrounds/bg-top.png) 0 0 repeat-x;
+	background: #dbf1f9 url( /images/backgrounds/bg-top.png?200901261123 ) 0 0 repeat-x;
 	margin: 0;
 }
 
@@ -20,7 +20,7 @@ div#header {
 
 	div#header a.home {
 		position: absolute;
-		background: transparent url(/images/logo-bg.png) 0 0 no-repeat;
+		background: transparent url( /images/logo-bg.png?200901261123 ) 0 0 no-repeat;
 		top: 0;
 		left: 0;
 		width: 352px;
@@ -35,7 +35,7 @@ div#header {
 		position: absolute;
 		bottom: -1px;
 		left: 30px;
-		background: transparent url(/images/navigation.png) 0 0 no-repeat;
+		background: transparent url( /images/navigation.png?200901261123 ) 0 0 no-repeat;
 		width: 441px;
 		height: 117px;
 		z-index: 10000;
@@ -78,6 +78,16 @@ div#main {
 		margin: ;
 	}
 
+	div#main div#guy {
+		position: absolute;
+		top: -138px;
+		right: -1px;
+		width: 276px;
+		height: 216px;
+		background: transparent url( /images/guy.png?200901261123 ) 0 0 no-repeat;
+		z-index: 1000;
+	}
+
 div#footer {
 	position:relative;
 	width: 84em;
@@ -90,7 +100,7 @@ div#footer {
 		position: absolute;
 		top: 0;
 		left: 3.5em;
-		background: transparent url( /images/footer-gazebo.png) 0 0 no-repeat;
+		background: transparent url( /images/footer-gazebo.png?200901261123 ) 0 0 no-repeat;
 		width: 106px;
 		height: 59px;
 	}
