@@ -29,9 +29,12 @@
 			<div class="content">
 				<%= render_error( flash[:error] ) %>
 				<%= render_notice( flash[:notice] ) %>
-				<%= yield %>
 			</div>
+			<%= yield %>
 			<div id="guy"></div>
+			<div id="tl"></div>
+			<div id="bl"></div>
+			<div id="br"></div>
 		</div>
 		<% cache 'footer' do %>
 			<div id="footer">
