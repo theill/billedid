@@ -1,0 +1,67 @@
+html {
+	background: #dbf1f9 url(/images/backgrounds/bg-top.png) 0 0 repeat-x;
+	margin: 0;
+}
+
+body {
+	text-align: center;
+	margin: 0;
+}
+
+div#header {
+	position:relative;
+	width: 84em;
+	text-align:left;
+	margin: 0 auto;
+	height: 243px;
+
+}
+
+	div#header a.home {
+		position: absolute;
+		background: transparent url(/images/logo-bg.png) 0 0 no-repeat;
+		top: 0;
+		left: 0;
+		width: 352px;
+		height: 124px;
+	}
+
+		div#header a.home img {
+			display: none;
+		}
+
+	div#header ul.nl {
+		position: absolute;
+		bottom: 0;
+		left: 30px;
+		background: transparent url(/images/navigation.png) 0 0 no-repeat;
+		width: 441px;
+		height: 117px;
+	}
+	
+		div#header ul.nl li {
+			display: inline;
+			float: left;
+			/*background: yellow;*/
+			margin: 0 5px 0 0;
+			width: 142px;
+			height: 117px;
+		}
+			div#header ul.nl li a {
+				background: lime;
+				display: block;
+				width: 142px;
+				height: 117px;
+			}
+			div#header ul.nl li span {
+				display: none;
+			}
+
+
+div#main,
+div#footer {
+	position:relative;
+	width: 84em;
+	text-align:left;
+	margin: 0 auto;
+}
