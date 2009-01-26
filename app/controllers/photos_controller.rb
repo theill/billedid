@@ -47,6 +47,10 @@ class PhotosController < ApplicationController
       if @photo.update_attributes(params[:photo])
         # crop *and replace* existing image
         @photo.crop(params[:width].to_i, params[:height].to_i, params[:x1].to_i, params[:y1].to_i)
+
+				# add id to session of our cropped image, to assist with creating menus
+				session[:cropped_photo_id] = @photo.id
+				
         format.html { redirect_to @photo }
       else
         format.html { render :action => "edit" }

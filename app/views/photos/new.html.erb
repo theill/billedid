@@ -1,43 +1,35 @@
-<h1>Trin <span>1</span> af 3</h1>
+<% @meta_description = 'Med billedid kan du gratis lave dine egne pasfoto på få minutter' %>
+<div class="content">
+	<h1>Hvad er Billed ID?</h1>
+	<p>Med <b>billedID</b> har du mulighed for at lave dine pasfoto gratis.</p>
+	
+	<p>
+		Start med at tage et billede af personen mod en hvid væg i Jeres
+		hus/lejlighed.
+	</p>
 
-<%= render :partial => 'guide', :locals => { :step => 1 } %>
+	<% form_for(@photo, :html => { :multipart => true }) do |f| %>
+		<h2>Vælg dit billede</h2>
+	  	<fieldset>
+			<%= f.file_field :uploaded_data %>
+		</fieldset>  
+		<fieldset class="controls">
+			<%= f.submit "Overfør billede" %>
+		</end>
+	<% end %>
 
-<p>
-	Start med at tage et billede af personen mod en hvid væg i Jeres
-	hus/lejlighed.
-</p>
+	<p>
+		Sørg for, at følgende krav er opfyldt:
+		<ul>
+	   <li>Ingen skygger i ansiget eller væggen</li>
+	   <li>Ensfarvet (hvid) væg uden dekorationer eller mønstre</li>
+	   <li>Naturligt ansigts-udtryk dvs åbne øjne, lukket mund, let smil</li>
+	   <li>Godt med rum rundt om hovedet</li>
+		</ul>
+	</p>
 
-<p>
-	<%= image_tag 'step1-example.png', :alt => 'Eksempel på billede til beskæring' %>
-</p>
-
-<% form_for(@photo, :html => { :multipart => true }) do |f| %>
-  <p>
-    <%= f.file_field :uploaded_data %>
-  </p>
-  
-  <p>
-    <%= f.submit "Overfør billede" %>
-  </p>
-<% end %>
-
-<p>
-	Sørg for, at følgende krav er opfyldt:
-	<ul>
-   <li>Ingen skygger i ansiget eller væggen</li>
-   <li>Ensfarvet (hvid) væg uden dekorationer eller mønstre</li>
-   <li>Naturligt ansigts-udtryk dvs åbne øjne, lukket mund, let smil</li>
-   <li>Godt med rum rundt om hovedet</li>
-	</ul>
-</p>
-
-<p>
-	Når billedet er taget, overfører du det fra dit kamera til din computer og 
-	angiver lokationen til det i nedestående felt.
-</p>
-
-<% content_for :help do -%>
-	<h3 class="first">Hvad er det?</h3>
-	<p>Med <b>billedID</b> har du mulighed for at lave dine
-		pasfoto gratis.</p>
-<% end %>
+	<p>
+		Når billedet er taget, overfører du det fra dit kamera til din computer og 
+		angiver lokationen til det i nedestående felt.
+	</p>
+</div>

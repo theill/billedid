@@ -6,6 +6,7 @@ html {
 body {
 	text-align: center;
 	margin: 0;
+	font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
 }
 
 div#header {
@@ -32,12 +33,17 @@ div#header {
 
 	div#header ul.nl {
 		position: absolute;
-		bottom: 0;
+		bottom: -1px;
 		left: 30px;
 		background: transparent url(/images/navigation.png) 0 0 no-repeat;
 		width: 441px;
 		height: 117px;
+		z-index: 10000;
 	}
+	
+		div#header ul.nl.active_step_1 {	background-position: 0 0; }
+		div#header ul.nl.active_step_2 {	background-position: 0 -117px; }
+		div#header ul.nl.active_step_3 { background-position: 0 -234px; }
 	
 		div#header ul.nl li {
 			display: inline;
@@ -48,7 +54,6 @@ div#header {
 			height: 117px;
 		}
 			div#header ul.nl li a {
-				background: lime;
 				display: block;
 				width: 142px;
 				height: 117px;
@@ -58,10 +63,55 @@ div#header {
 			}
 
 
-div#main,
+div#main {
+	position:relative;
+	width: 77em;
+	text-align:left;
+	margin: 0 auto;
+
+	border: 1px solid #dbe0e2;
+	padding: 1.5em 3.5em;
+	background: #fff;
+}
+
+	div#main div.content {
+		margin: ;
+	}
+
 div#footer {
 	position:relative;
 	width: 84em;
 	text-align:left;
 	margin: 0 auto;
+	padding: 0 0 4em;
 }
+
+	div#footer a.logo {
+		position: absolute;
+		top: 0;
+		left: 3.5em;
+		background: transparent url( /images/footer-gazebo.png) 0 0 no-repeat;
+		width: 106px;
+		height: 59px;
+	}
+
+		div#footer a.logo span {
+			display: none;
+		}
+
+	div#footer div.content {
+		padding: 1em;
+		text-align: center;
+		color: #b0bfc4;		
+	}
+	
+	div#footer div.content a {
+		color: #b0bfc4;		
+	}
+
+	div#footer a.privacy {
+		position: absolute;
+		top: 1em;
+		right: 3.5em;
+	}
+	

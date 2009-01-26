@@ -1,45 +1,38 @@
-<h1>Trin <span>2</span> af 3</h1>
+<div class="content">
+	<h1>Tilpas billedet</h1>
+	<p>
+		Marker billedet med musen. Propertionerne vil blive bibeholdt i den korrekte
+		størrelse.
 
-<%= render :partial => 'guide', :locals => { :step => 2 } %>
+		Flyt markeringen over dit billede, saa hovedet og hage er korrekt placeret 
+		inden i rammen.
+	</p>
 
-<p>
-	Marker billedet med musen. Propertionerne vil blive bibeholdt i den korrekte
-	størrelse.
+	<%= image_tag 'pas-eksempel.jpg', :alt => 'Pas eksempel'%>
 
-	Flyt markeringen over dit billede, saa hovedet og hage er korrekt placeret 
-	inden i rammen.
-</p>
+	<div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
 
-<%= image_tag 'pas-eksempel.jpg', :alt => 'Pas eksempel'%>
+	<!-- TODO: embed this preview into a passport - it would look nice and users would be able to relate
+	to a real-time use of the image. at least it could be funny. something like the below.
 
-<div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
-
-<!-- TODO: embed this preview into a passport - it would look nice and users would be able to relate
-to a real-time use of the image. at least it could be funny. something like the below.
-
-<div id="passport">
-	<div id="photo-preview">
+	<div id="passport">
+		<div id="photo-preview">
 	
-	</div>
-</div> -->
+		</div>
+	</div> -->
 
-<% form_for(@photo) do |f| %>
-	<%= hidden_field_tag 'x1' %>
-	<%= hidden_field_tag 'y1' %>
-	<%= hidden_field_tag 'x2' %>
-	<%= hidden_field_tag 'y2' %>
-	<%= hidden_field_tag 'width' %>
-	<%= hidden_field_tag 'height' %>
+	<% form_for(@photo) do |f| %>
+		<%= hidden_field_tag 'x1' %>
+		<%= hidden_field_tag 'y1' %>
+		<%= hidden_field_tag 'x2' %>
+		<%= hidden_field_tag 'y2' %>
+		<%= hidden_field_tag 'width' %>
+		<%= hidden_field_tag 'height' %>
 	
-	<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
-	<%= f.submit 'Klip billede' %>
-<% end %>
+		<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
+		<%= f.submit 'Klip billede' %>
+	<% end %>
 
-<% content_for :menu do -%>
-	<%= link_to "Tilbage", root_path %>
-<% end -%>
-
-<% content_for :help do -%>
 	<h3>Politiets krav</h3>
 	<p>
 		Politiet har følgende krav til billeder der skal benyttes til pas:
@@ -56,4 +49,6 @@ to a real-time use of the image. at least it could be funny. something like the 
 		<li>være taget i siden fra profil, således at begge øjne og højre øre er synlige</li>
 	</ul>
 
-<% end -%>
+</div>
+
+

@@ -8,16 +8,6 @@ class Photo < ActiveRecord::Base
 		:thumbnails => {
 		  :thumbnail => '480>'
 		}
-    # :resize_to => '1024>',
-    # :thumbnails => { 
-    #   :tiny => '35x45',
-    #   :small => '70x90',
-    #   :medium => '140x180',
-    #   :large => '280x360',
-    #       :cropped => '10x10',
-    #       :preview => '400x300',
-    #       :canvas => '1600x1200'
-    # }
   
   named_scope :obsoleted, lambda { { :conditions => ['created_at < ? AND parent_id IS NULL', -2.hours.from_now] } }
 		
