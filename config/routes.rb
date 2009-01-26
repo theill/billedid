@@ -1,19 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
-  def map.controller_actions(controller, aktions)
-    aktions.each do |action|
-      self.send("#{controller}_#{action}", "#{action}", :controller => controller, :action => action)
-    end
-  end
-
-  map.resources :photos, :member => {:download => :get}
+  map.resources :photos, :only => [:new, :create, :edit, :update, :show], :member => {:download => :get}
   
   map.namespace :admin do |admin|
     admin.resources :photos
   end
 
+  map.root :controller => "photos", :action => "new"
+	
+	map.privacy 'fortrolighed', :controller => 'about', :action => 'privacy'
+	
   # safari hack
   map.connect '/ping/close', :controller => 'photos', :action => 'closekeepalive'
-
-  map.root :controller => "photos", :action => "new"
-  map.controller_actions 'about', %w[privacy]
 end

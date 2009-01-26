@@ -15,7 +15,6 @@ class PhotosController < ApplicationController
   # GET /photos/new
   def new
     @photo = Photo.new
-    
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -37,6 +36,10 @@ class PhotosController < ApplicationController
       end
     end
   end
+
+	def edit
+		
+	end
 
   # PUT /photos/1
   def update
@@ -61,10 +64,8 @@ class PhotosController < ApplicationController
     response.headers['Connection'] = 'Close'
     render :text => ''
   end
-
   
   private
-  
   def render_preview(photo)
     send_file photo.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
   end
