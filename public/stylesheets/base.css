@@ -9,6 +9,22 @@ body {
 	font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
 }
 
+body div.content fieldset {
+	border: none;
+	padding: 0 0 0 0.1em;
+	margin: 0 0 1em;
+}
+
+body div#main div.content ul {
+	margin-left: 0;
+} 
+body div#main div.content li {
+	list-style: none;
+	margin: 0;
+	padding: 0 0 0 12px;
+	background: transparent url( /images/bullet.png?200901261123 ) 0 6px no-repeat;
+}
+
 div#header {
 	position:relative;
 	width: 84em;
@@ -35,15 +51,15 @@ div#header {
 		position: absolute;
 		bottom: -1px;
 		left: 30px;
-		background: transparent url( /images/navigation.png?200901261123 ) 0 0 no-repeat;
+		background: transparent url( /images/navigation.png?200901261347 ) 0 0 no-repeat;
 		width: 441px;
 		height: 117px;
 		z-index: 10000;
 	}
 	
-		div#header ul.nl.active_step_1 {	background-position: 0 0; }
-		div#header ul.nl.active_step_2 {	background-position: 0 -117px; }
-		div#header ul.nl.active_step_3 { background-position: 0 -234px; }
+		div#header ul.nl.active_step_1 {	background-position: 0 -117; }
+		div#header ul.nl.active_step_2 {	background-position: 0 -234px; }
+		div#header ul.nl.active_step_3 { background-position: 0 -351px; }
 	
 		div#header ul.nl li {
 			display: inline;
@@ -73,11 +89,6 @@ div#main {
 	padding: 1.5em 3.5em;
 	background: #fff;
 }
-
-	div#main div.content {
-		margin: ;
-	}
-
 	div#main div#guy {
 		position: absolute;
 		top: -138px;
@@ -87,6 +98,25 @@ div#main {
 		background: transparent url( /images/guy.png?200901261123 ) 0 0 no-repeat;
 		z-index: 1000;
 	}
+
+	div#main div.content {
+		overflow: auto;
+	}
+
+	div#main div.content div.lcol{
+		float: left;
+		margin-right: 6%;
+		width: 37%;
+	}
+	div#main div.content div.rcol{
+		float: left;
+		width: 57%;
+	}
+
+	#photo_uploaded_data {
+		max-width: 280px; /* damn you firefox, even IE6 can do something with this element */
+	}
+	
 
 div#footer {
 	position:relative;

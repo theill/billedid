@@ -22,15 +22,20 @@
 	</div> -->
 
 	<% form_for(@photo) do |f| %>
-		<%= hidden_field_tag 'x1' %>
-		<%= hidden_field_tag 'y1' %>
-		<%= hidden_field_tag 'x2' %>
-		<%= hidden_field_tag 'y2' %>
-		<%= hidden_field_tag 'width' %>
-		<%= hidden_field_tag 'height' %>
-	
-		<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
-		<%= f.submit 'Klip billede' %>
+		<div style="display: none">
+			<%= hidden_field_tag 'x1' %>
+			<%= hidden_field_tag 'y1' %>
+			<%= hidden_field_tag 'x2' %>
+			<%= hidden_field_tag 'y2' %>
+			<%= hidden_field_tag 'width' %>
+			<%= hidden_field_tag 'height' %>
+		</div>		
+		<fieldset>
+			<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
+		</fieldset>
+		<fieldset>
+			<%= f.submit 'Klip billede' %>
+		</fieldset>
 	<% end %>
 
 	<h3>Politiets krav</h3>

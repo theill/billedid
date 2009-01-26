@@ -2,7 +2,6 @@ module ApplicationHelper
 
 	# renders the top menu, allowing for links to the edit and show actions, if the passed session contains a photo_id and a cropped_photo_id
 	def render_top_menu( path, session = nil )
-		
 		menuitems = content_tag :li, '<a href="/" title="Upload billede"><span>Upload</span></a>', :class => 'upload'
 
 		if ( session && !session[:photo_id].blank? )
@@ -41,8 +40,10 @@ module ApplicationHelper
 			active_step = 3
 		when session[:photo_id] && path == edit_photo_path( session[:photo_id] )
 			active_step = 2
-		else
+		when path == '/' || path == new_photo_path
 			active_step = 1
+		else
+			active_step = 0
 		end
 	end
 
