@@ -14,7 +14,7 @@
 	
 	<div class="cols adjust_photo">
 		<div class="lcol">
-			<div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image') %></div>
+			<div id="photo-image-canvas"><%= image_tag(@photo.public_filename(:thumbnail), :id => 'photo-image', :width => 480) %></div>
 			<% form_for(@photo) do |f| %>
 				<div style="display: none">
 					<%= hidden_field_tag 'x1' %>
@@ -28,7 +28,7 @@
 					<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
 				</fieldset>
 				<fieldset>
-					<%= f.submit 'Tilpas billede' %>
+					<%= image_submit_tag '/images/buttons/adjust.png', :class => 'button', :alt => 'Tilpas billede' %> 
 				</fieldset>
 			<% end %>
 		</div>
@@ -38,7 +38,7 @@
 				i rammen. Du kan skifte størrelse på skabelonen ved at trække i hjørnerne.
 			</p>
 			<p>
-				<%= image_tag 'pas-eksempel.jpg', :alt => 'Pas eksempel'%>
+				<%= image_tag '/images/illustrations/adjusting-cropper.png', :alt => 'Eksempel på tilpasning'%>
 			</p>
 			<p>
 				Det endelige billede vil lavet med korrekte dimensioner.

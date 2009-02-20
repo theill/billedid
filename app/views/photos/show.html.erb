@@ -1,12 +1,19 @@
 <div class="content">
+	
 	<h1>Dit foto er færdigt!</h1>
 
-	<p>
-		Dit foto er nu færdigt og du kan <%= link_to("hente det ned", :action => :download) %> 
-		på din computer. Herefter	kan du printe det ud på din egen printer eller 
+	<div class="preview-img"><%= link_to(image_tag(formatted_photo_path(@photo, 'jpg'), :alt => 'Download det færdige billede'), :action => :download ) %></div>
+	<p class="complete">
+		Dit foto er nu færdigt og du kan <%= link_to("hente det ned", :action => :download) %>
+		på din computer. 
+		
+		<%= link_to(image_tag('/images/buttons/download.png', :alt => 'Download det færdige billede'), {:action => :download}, {:class => 'download', :title => 'Download din færdige fotos'}) %>
+		
+	</p>
+	<p>	
+		Herefter kan du printe det ud på din egen printer eller 
 		du kan bruge en online-fremkalde service såsom <a href="http://www.pixum.dk/" rel="external" target="_blank">pixum</a> 
 		eller <a href="https://asp.photoprintit.de/microsite/10021/" rel="external" target="_blank">Bilka fotoservice</a>.
 	</p>
 
-	<%= link_to(image_tag(formatted_photo_path(@photo, 'jpg')), :action => :download) %>
 </div>

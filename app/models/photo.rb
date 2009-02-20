@@ -74,7 +74,7 @@ class Photo < ActiveRecord::Base
     File.delete fn if exists?
     File.delete final if exists?
     
-    bg = ["#{RAILS_ROOT}/public/images/billedid-info.jpg",
+    bg = ["#{RAILS_ROOT}/public/images/billedid-info.png",
       "#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1678_walenstadtberg_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1690_playkiss_1600x1200.jpg",
