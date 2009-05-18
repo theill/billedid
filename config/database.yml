@@ -42,7 +42,7 @@ staging:
 
 production:
   adapter: mysql
-  database: billedid_production
-  username: db_billedid
-  password: cola2picture
   encoding: utf8
+  database: peter_billedid_production
+  username: peter
+  password: 123456

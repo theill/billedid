@@ -1,4 +1,3 @@
-#require 'railsmachine/recipes'
 require 'gazebomachine/recipes'
 
 set :stages, %w(staging production)
@@ -32,7 +31,6 @@ set :scm, :git
 set :repository, "git@github.com:theill/#{application}.git"
 set :branch, "master"
 set :repository_cache, "git_cache"
-#currently fails on cap 2.3.0  
 set :deploy_via, :remote_cache
 set :ssh_options, { :forward_agent => true }
 
@@ -83,3 +81,12 @@ set :ssh_options, { :forward_agent => true }
 set :keep_releases, 3
 
 require 'capistrano/ext/multistage'
+
+namespace :deploy do
+  desc "Restart a passenger hosted RoR app"
+  task :restart, :roles => :app do
+  run <<-EOF
+cd #{deploy_to}/current/tmp && touch #{deploy_to}/current/tmp/restart.txt
+EOF
+  end
+end
