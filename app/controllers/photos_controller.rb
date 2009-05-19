@@ -70,6 +70,7 @@ class PhotosController < ApplicationController
   end
   
   private
+  
   def render_preview(photo)
     send_file photo.full_filename(:preview), :type => 'image/jpg', :disposition => 'inline'
   end

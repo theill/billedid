@@ -1,5 +1,6 @@
+require 'rmagick'
+
 class Photo < ActiveRecord::Base
-	
 	has_attachment :content_type => :image, 
 		:storage => :file_system,
     :processor => :rmagick,
@@ -40,7 +41,7 @@ class Photo < ActiveRecord::Base
     # see https://asp.photoprintit.de/microsite/10021/quality.php
     # 1600x1200
     
-    fn = self.full_filename(:cropped)
+    cropped = self.full_filename(:cropped)
 		tiled = self.full_filename(:tiled)
     final = self.full_filename(:final)
     
@@ -71,7 +72,7 @@ class Photo < ActiveRecord::Base
     border = 64
     
     # remove final image in case it has already been generated
-    File.delete fn if exists?
+    File.delete cropped if exists?
     File.delete final if exists?
     
     bg = ["#{RAILS_ROOT}/public/images/billedid-info.png",
@@ -81,13 +82,28 @@ class Photo < ActiveRecord::Base
       "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
     
-    image = MiniMagick::Image.from_file(fn)
-		image.run_command "convert -strip -quality #{self.quality} -size #{tiled_width}x#{tiled_height} tile:#{fn} #{tiled}"		
-		image.run_command "composite -strip -quality #{self.quality} -geometry #{tiled_width}x#{tiled_height}+#{border}+#{border} #{tiled} #{bg} #{final}"
+    image = Magick::Image.read(cropped)[0]
+    # image.run_command "convert -strip -quality #{self.quality} -size #{tiled_width}x#{tiled_height} tile:#{fn} #{tiled}"    
+    # image.run_command "composite -strip -quality #{self.quality} -geometry #{tiled_width}x#{tiled_height}+#{border}+#{border} #{tiled} #{bg} #{final}"
+    
+    image.strip!
+    image.change_geometry!("#{tiled_width}x#{tiled_height}") do |cols, rows, img|
+      img.resize!(cols, rows)
+    end
+    image.write(tiled) do
+      self.quality = quality
+    end
+    
+    finalimage = Magick::Image.read(bg)[0]
+    finalimage = finalimage.composite_tiled(image)
+    finalimage.write(final)
     
     # do preview of it
-    image = MiniMagick::Image.from_file(final)
-    image.resize "400x300>"
+    image = Magick::Image.read(final)[0]
+    image.change_geometry!("400x300>") do |cols, rows, img|
+      img.resize!(cols, rows)
+    end
+    
     image.write(self.full_filename(:preview))
     
     # image.run_command "montage #{fn} #{fn} #{fn} #{fn} -background #eeeeee -tile 2x2 -geometry 35x45+1+1 -size 1536x1024 montage.jpg"
@@ -98,7 +114,7 @@ class Photo < ActiveRecord::Base
   # montage -size 400x400 null: '../photo_store/*_orig.jpg' null: -thumbnail 200x200 -bordercolor Lavender -background black +polaroid  -resize 30%  -background LightGray -geometry -10+2  -tile x1    polaroid_overlap.jpg
   
   def crop(width, height, x1, y1)
-    image = MiniMagick::Image.from_file(self.full_filename)
+    image = Magick::Image.read(self.full_filename)[0]
 		thumbnail = self.thumbnails.first # NASTY: must fix
 		ratio = self.width / thumbnail.width.to_f
 		
@@ -107,10 +123,22 @@ class Photo < ActiveRecord::Base
 		destination_x1			= (x1 * ratio).to_i
 		destination_y1			= (y1 * ratio).to_i
 		
-    image.crop "#{destination_width}x#{destination_height}+#{destination_x1}+#{destination_y1}"
+    # image.crop "#{destination_width}x#{destination_height}+#{destination_x1}+#{destination_y1}"
+    # image.write(self.full_filename(:cropped))
+    # image.run_command "mogrify -strip -quality #{self.quality} -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
+    # image.run_command "convert -strip -quality #{self.quality} -resize 413x531! #{self.full_filename(:cropped)} #{self.full_filename(:cropped)}" 
+    image.crop(destination_x1, destination_y1, destination_width, destination_height)
     image.write(self.full_filename(:cropped))
-    image.run_command "mogrify -strip -quality #{self.quality} -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
-		image.run_command "convert -strip -quality #{self.quality} -resize 413x531! #{self.full_filename(:cropped)} #{self.full_filename(:cropped)}" 
+
+    image.strip!
+    image = image.quantize(256, Magick::GRAYColorspace) if self.grayscale
+    image.change_geometry!("413x531!") do |cols, rows, img|
+      img.resize!(cols, rows)
+    end
+    
+    image.write(self.full_filename(:cropped)) do
+      self.quality = quality
+    end
     
     # save to force thumbnails to be updated
     # self.save
