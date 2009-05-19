@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
 	
 	has_attachment :content_type => :image, 
 		:storage => :file_system,
-		:processor => 'MiniMagick',
+    :processor => :rmagick,
 		:max_size => 5.megabytes,
 		:resize_to => '2000x1500>',
 		:thumbnails => {
@@ -25,12 +25,12 @@ class Photo < ActiveRecord::Base
     self.uploaded_data = data
   end
 
-  def resize_image(img, size)
-    # Get rid of all colour profiles.  They take up a lot of space.
-    img.strip
-    img.quality self.quality
-    super
-  end
+  # def resize_image(img, size)
+  #   # Get rid of all colour profiles.  They take up a lot of space.
+  #   img.strip
+  #   img.quality self.quality
+  #   super
+  # end
 
   def exists?
     File.exists?(self.full_filename(:final)) && !Rails.env.development?
