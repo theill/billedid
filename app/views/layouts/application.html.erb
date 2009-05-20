@@ -23,7 +23,7 @@
 			<a href="/" class="home" title="BilledID.dk - Lav dit eget pasfoto på et øjeblik">
 				<%= image_tag '/images/logo.png', :alt => "BilledID.dk - Lav dit eget pasfoto på et øjeblik", :size => '352x124' -%>
 			</a>
-			<%= render_top_menu( request.path, session ) %>
+			<%= render_top_menu(request.path, session) %>
 		</div>
 		<div id="main">
 			<div class="content">
@@ -38,9 +38,8 @@
 		</div>
 		<% cache 'footer' do %>
 			<div id="footer">
-				<%= link_to('<span>Commanigy</span>', 'http://commanigy.com', :class => 'logo', :rel => 'external', :title => 'Commanigy') %>
 				<div class="content">					
-					&copy; 2008&ndash;<%= Date.today.year %> <%= link_to 'Commanigy', 'http://gazeboapps.com', :title => 'Commanigy' %>. Alle rettigheder forbeholdes.
+					&copy; 2008&ndash;<%= Date.today.year %> <%= link_to 'Commanigy', 'http://commanigy.com', :title => 'Commanigy' %>. Alle rettigheder forbeholdes.
 					<%= link_to( 'Fortrolighed', privacy_path, :class => 'privacy' ) %>
 				</div>
 			</div>

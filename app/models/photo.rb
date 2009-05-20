@@ -11,11 +11,11 @@ class Photo < ActiveRecord::Base
   named_scope :obsoleted, lambda { { :conditions => ['created_at < ? AND parent_id IS NULL', -2.hours.from_now] } }
 		
   validates_as_attachment
-
+  
 	def quality
 		75
 	end
-
+  
   # Map file extensions to mime types.
   # Thanks to bug in Flash 8 the content type is always set to application/octet-stream.
   # From: http://blog.airbladesoftware.com/2007/8/8/uploading-files-with-swfupload
@@ -40,8 +40,8 @@ class Photo < ActiveRecord::Base
     # 1600x1200
     
     cropped = self.full_filename(:cropped)
-		tiled = self.full_filename(:tiled)
     final = self.full_filename(:final)
+    preview = self.full_filename(:preview)
     
     # requirements: each profile picture must be 35mm in width and 45mm in height
     # converted to pixels with 300dpi (on a 13x10cm => 13.6x10.2cm => 1536x1024 layer) this is 
@@ -80,29 +80,34 @@ class Photo < ActiveRecord::Base
       "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
       "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
     
-    image = Magick::Image.read(cropped)[0]
     # image.run_command "convert -strip -quality #{self.quality} -size #{tiled_width}x#{tiled_height} tile:#{fn} #{tiled}"    
     # image.run_command "composite -strip -quality #{self.quality} -geometry #{tiled_width}x#{tiled_height}+#{border}+#{border} #{tiled} #{bg} #{final}"
     
-    image.strip!
-    image.change_geometry!("#{tiled_width}x#{tiled_height}") do |cols, rows, img|
-      img.resize!(cols, rows)
-    end
-    image.write(tiled) do
-      self.quality = quality
-    end
+    # image.strip!
+    # image.change_geometry!("#{tiled_width}x#{tiled_height}") do |cols, rows, img|
+    #   img.resize!(cols, rows)
+    # end
+    # image.write(tiled) do
+    #   self.quality = quality
+    # end
     
-    finalimage = Magick::Image.read(bg)[0]
-    finalimage = finalimage.composite_tiled(image)
-    finalimage.write(final)
+    # create new memory image with tiled image (2x2 row)
+    tiled_image = Magick::Image.new(tiled_width, tiled_height) do
+      self.background_color = 'red'
+    end
+    tiled_image.composite_tiled!(Magick::Image.read(cropped)[0])
+    
+    # apply tiled image over background
+    image = Magick::Image.read(bg)[0]
+    image.composite!(tiled_image, border, border, Magick::OverCompositeOp)
+    image.write(final)
     
     # do preview of it
-    image = Magick::Image.read(final)[0]
     image.change_geometry!("400x300>") do |cols, rows, img|
       img.resize!(cols, rows)
     end
     
-    image.write(self.full_filename(:preview))
+    image.write(preview)
     
     # image.run_command "montage #{fn} #{fn} #{fn} #{fn} -background #eeeeee -tile 2x2 -geometry 35x45+1+1 -size 1536x1024 montage.jpg"
     # image.run_command "montage #{fn} #{fn} #{fn} #{fn} #{fn} #{fn} -background #ffffff -tile 3x2 -geometry +1+1 -repage 1600x1200 montage_preview.jpg"
@@ -125,9 +130,7 @@ class Photo < ActiveRecord::Base
     # image.write(self.full_filename(:cropped))
     # image.run_command "mogrify -strip -quality #{self.quality} -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale
     # image.run_command "convert -strip -quality #{self.quality} -resize 413x531! #{self.full_filename(:cropped)} #{self.full_filename(:cropped)}" 
-    image.crop(destination_x1, destination_y1, destination_width, destination_height)
-    image.write(self.full_filename(:cropped))
-
+    image.crop!(destination_x1, destination_y1, destination_width, destination_height)
     image.strip!
     image = image.quantize(256, Magick::GRAYColorspace) if self.grayscale
     image.change_geometry!("413x531!") do |cols, rows, img|
