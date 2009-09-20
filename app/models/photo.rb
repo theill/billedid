@@ -10,7 +10,7 @@ class Photo < ActiveRecord::Base
 		}
   
   named_scope :obsoleted, lambda { { :conditions => ['created_at < ? AND parent_id IS NULL', -2.hours.from_now] } }
-		
+	
   validates_as_attachment
   
 	def quality
@@ -33,7 +33,7 @@ class Photo < ActiveRecord::Base
   # end
 
   def exists?
-    File.exists?(self.full_filename(:final)) && !Rails.env.development?
+    File.exists?("#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}") && !Rails.env.development?
   end
   
   def generate
@@ -77,8 +77,10 @@ class Photo < ActiveRecord::Base
     border = 64
     
     # remove final image in case it has already been generated
-    File.delete cropped if exists?
-    File.delete final if exists?
+    if exists?
+      File.delete("#{RAILS_ROOT}/tmp/#{self.full_filename(:cropped)}")
+      File.delete("#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}")
+    end
     
     bg = ["#{RAILS_ROOT}/public/images/billedid-info.png",
       "#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
