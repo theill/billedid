@@ -24,7 +24,7 @@ Rails::Initializer.run do |config|
   # They can then be installed with "rake gems:install" on new installations.
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem "aws-s3", :lib => "aws/s3"
   # config.gem "rmagick", :version => '>=1.2.3'
   # config.gem 'mime-types', :lib => 'mime/types'
 

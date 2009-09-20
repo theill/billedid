@@ -34,6 +34,7 @@ module ApplicationHelper
 	end
 
 	private
+	
 	def find_active_step( path, session = nil )
 		case
 		when session[:photo_id] && path == photo_path( session[:photo_id] )

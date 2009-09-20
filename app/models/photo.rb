@@ -1,6 +1,7 @@
 class Photo < ActiveRecord::Base
 	has_attachment :content_type => :image, 
-		:storage => :file_system,
+		:storage => :s3,
+    # :path_prefix => "tmp/#{table_name}",
     :processor => :rmagick,
 		:max_size => 5.megabytes,
 		:resize_to => '2000x1500>',
@@ -39,9 +40,15 @@ class Photo < ActiveRecord::Base
     # see https://asp.photoprintit.de/microsite/10021/quality.php
     # 1600x1200
     
-    cropped = self.full_filename(:cropped)
-    final = self.full_filename(:final)
-    preview = self.full_filename(:preview)
+    if self.attachment_options[:storage] == :s3
+      cropped = self.public_filename(:cropped)
+      final = self.public_filename(:final)
+      preview = self.public_filename(:preview)
+    elsif self.attachment_options[:storage] == :file_system
+      cropped = self.full_filename(:cropped)
+      final = self.full_filename(:final)
+      preview = self.full_filename(:preview)
+    end
     
     # requirements: each profile picture must be 35mm in width and 45mm in height
     # converted to pixels with 300dpi (on a 13x10cm => 13.6x10.2cm => 1536x1024 layer) this is 
@@ -100,14 +107,27 @@ class Photo < ActiveRecord::Base
     # apply tiled image over background
     image = Magick::Image.read(bg)[0]
     image.composite!(tiled_image, border, border, Magick::OverCompositeOp)
-    image.write(final)
+    
+    if self.attachment_options[:storage] == :s3
+      fn = "#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}"
+      image.write(fn)
+      AWS::S3::S3Object.store(self.full_filename(:final), open(fn), 'billedid', :access => :public_read, :content_type => 'image/jpg', :content_disposition => 'attachment')
+    elsif self.attachment_options[:storage] == :file_system
+      image.write(final)
+    end
     
     # do preview of it
     image.change_geometry!("400x300>") do |cols, rows, img|
       img.resize!(cols, rows)
     end
     
-    image.write(preview)
+    if self.attachment_options[:storage] == :s3
+      fn = "#{RAILS_ROOT}/tmp/#{self.full_filename(:preview)}"
+      image.write(fn)
+      AWS::S3::S3Object.store(self.full_filename(:preview), open(fn), 'billedid', :access => :public_read)
+    elsif self.attachment_options[:storage] == :file_system
+      image.write(preview)
+    end
     
     # image.run_command "montage #{fn} #{fn} #{fn} #{fn} -background #eeeeee -tile 2x2 -geometry 35x45+1+1 -size 1536x1024 montage.jpg"
     # image.run_command "montage #{fn} #{fn} #{fn} #{fn} #{fn} #{fn} -background #ffffff -tile 3x2 -geometry +1+1 -repage 1600x1200 montage_preview.jpg"
@@ -117,7 +137,11 @@ class Photo < ActiveRecord::Base
   # montage -size 400x400 null: '../photo_store/*_orig.jpg' null: -thumbnail 200x200 -bordercolor Lavender -background black +polaroid  -resize 30%  -background LightGray -geometry -10+2  -tile x1    polaroid_overlap.jpg
   
   def crop(width, height, x1, y1)
-    image = Magick::Image.read(self.full_filename)[0]
+    if self.attachment_options[:storage] == :s3
+      image = Magick::Image.read(self.public_filename)[0]
+    elsif self.attachment_options[:storage] == :file_system
+      image = Magick::Image.read(self.full_filename)[0]
+    end
 		thumbnail = self.thumbnails.first # NASTY: must fix
 		ratio = self.width / thumbnail.width.to_f
 		
@@ -137,15 +161,30 @@ class Photo < ActiveRecord::Base
       img.resize!(cols, rows)
     end
     
-    image.write(self.full_filename(:cropped)) do
-      self.quality = quality
+    if self.attachment_options[:storage] == :s3
+      path = RAILS_ROOT + '/tmp/' + self.full_filename(:cropped)
+      path = path.gsub('/' + path.split('/').last, '')
+      FileUtils.mkdir_p path
+      
+      image.write(RAILS_ROOT + '/tmp/' + self.full_filename(:cropped)) do
+        self.quality = quality
+      end
+      
+      AWS::S3::S3Object.store(self.full_filename(:cropped), open(RAILS_ROOT + '/tmp/' + self.full_filename(:cropped)), 'billedid', :access => :public_read)
+      
+      # remove final image in case it has already been generated
+      File.delete(RAILS_ROOT + '/tmp/' + self.full_filename(:final)) if exists?
+      
+    elsif self.attachment_options[:storage] == :file_system
+      image.write(self.full_filename(:cropped)) do
+        self.quality = quality
+      end
+      
+      # save to force thumbnails to be updated
+      # self.save
+
+      # remove final image in case it has already been generated
+      File.delete(self.full_filename(:final)) if exists?
     end
-    
-    # save to force thumbnails to be updated
-    # self.save
-    
-    # remove final image in case it has already been generated
-    File.delete(self.full_filename(:final)) if exists?
   end
-  
 end

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
-  protect_from_forgery :secret => '025749458bf3b008135926cb41bc3188'
+  protect_from_forgery
   
   # See ActionController::Base for details 
   # Uncomment this to filter the contents of submitted sensitive data parameters
