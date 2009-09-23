@@ -104,7 +104,11 @@ class Photo < ActiveRecord::Base
     tiled_image = Magick::Image.new(tiled_width, tiled_height) do
       self.background_color = 'red'
     end
-    tiled_image.composite_tiled!(Magick::Image.read(cropped)[0])
+    # tiled_image.composite_tiled!(Magick::Image.read(cropped)[0]) (rmagick 2.x)
+    tiled_image.composite!(Magick::Image.read(cropped)[0], 0, 0, Magick::OverCompositeOp)
+    tiled_image.composite!(Magick::Image.read(cropped)[0], width, 0, Magick::OverCompositeOp)
+    tiled_image.composite!(Magick::Image.read(cropped)[0], 0, height, Magick::OverCompositeOp)
+    tiled_image.composite!(Magick::Image.read(cropped)[0], width, height, Magick::OverCompositeOp)
     
     # apply tiled image over background
     image = Magick::Image.read(bg)[0]
