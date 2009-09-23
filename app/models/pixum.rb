@@ -13,7 +13,8 @@ class Pixum
     if (rsp.body.match(/error=(.*)/)[1] == "0")
       upload_url = rsp.body.match(/uploadurl=(.*)/)[1]
       
-      binary_image = File.read("#{RAILS_ROOT}/tmp/#{photo.full_filename(:final)}")
+      filename = "#{RAILS_ROOT}/tmp/#{photo.full_filename(:final)}"
+      # binary_image = File.read(filename)
       
       # url = URI.parse(upload_url)
       # h = Net::HTTP.new(url.host, url.port)
@@ -23,22 +24,22 @@ class Pixum
       
       upload_url = upload_url.match(/(.*)\?(.*)/)[1]
       
-      image_file = File.open("#{RAILS_ROOT}/tmp/#{photo.full_filename(:final)}", 'rb')
+      image_file = File.open(filename, 'rb')
       params = { 'sessionToken' => session_token, 'token' => token, 'ImageData' => image_file }
       mp = Multipart::MultipartPost.new
       query, headers = mp.prepare_query(params)
       image_file.close
-      # Make sure the URL is useable
+      
       url = URI.parse(upload_url)
       
       # Do the actual POST, given the right inputs
       Net::HTTP.start(url.host, url.port) do |con|
-        con.read_timeout = 1000
+        con.read_timeout = 30
         begin
           res = con.post(url.path, query, headers)
           res.body.match(/clickurl=(.*)/)[1].strip
         rescue => e
-          "POSTING Failed #{e}... #{Time.now}"
+          nil
         end
       end
 

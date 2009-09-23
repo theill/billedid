@@ -6,11 +6,11 @@
 		Dit foto er nu færdigt og du kan <%= link_to("hente det ned", :action => :download) %>
 		på din computer. 
 		
+		<%= link_to(image_tag('/images/buttons/download.png', :alt => 'Download det færdige billede'), {:action => :download}, {:class => 'download', :title => 'Download dit færdige foto'}) %>
+		
 		<p>
 			<b>NYT</b> Køb dit billede hos PIXUM nu for <%= link_to('kun 22,- DKK inkl. forsendelse', new_pixum_path) %>.
 		</p>
-		
-		<%= link_to(image_tag('/images/buttons/download.png', :alt => 'Download det færdige billede'), {:action => :download}, {:class => 'download', :title => 'Download dit færdige foto'}) %>
 	</p>
 	<p>	
 		Herefter kan du printe det ud på din egen printer eller 

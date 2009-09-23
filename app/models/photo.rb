@@ -1,13 +1,12 @@
 class Photo < ActiveRecord::Base
 	has_attachment :content_type => :image, 
 		:storage => :s3,
-    # :path_prefix => "tmp/#{table_name}",
     :processor => :rmagick,
 		:max_size => 5.megabytes,
 		:resize_to => '2000x1500>',
-		:thumbnails => {
-		  :thumbnail => '480>'
-		}
+    :thumbnails => {
+      :thumbnail => '480>'
+    }
   
   named_scope :obsoleted, lambda { { :conditions => ['created_at < ? AND parent_id IS NULL', -2.hours.from_now] } }
 	
@@ -151,8 +150,9 @@ class Photo < ActiveRecord::Base
     elsif self.attachment_options[:storage] == :file_system
       image = Magick::Image.read(self.full_filename)[0]
     end
-		thumbnail = self.thumbnails.first # NASTY: must fix
-		ratio = self.width / thumbnail.width.to_f
+    thumbnail = self.thumbnails.first # NASTY: must fix
+    ratio = self.width / thumbnail.width.to_f
+    # ratio = self.width / 480.0
 		
 		destination_width		= (width * ratio).to_i
 		destination_height	= (height * ratio).to_i
