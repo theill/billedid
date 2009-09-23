@@ -82,12 +82,12 @@ class Photo < ActiveRecord::Base
       File.delete("#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}")
     end
     
-    bg = ["#{RAILS_ROOT}/public/images/billedid-info.png",
-      "#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
-      "#{RAILS_ROOT}/public/images/1678_walenstadtberg_1600x1200.jpg",
-      "#{RAILS_ROOT}/public/images/1690_playkiss_1600x1200.jpg",
-      "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
-      "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
+    bg = "#{RAILS_ROOT}/public/images/billedid-info.png"
+    #       "#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
+    #       "#{RAILS_ROOT}/public/images/1678_walenstadtberg_1600x1200.jpg",
+    #       "#{RAILS_ROOT}/public/images/1690_playkiss_1600x1200.jpg",
+    #       "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
+    #       "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
     
     # image.run_command "convert -strip -quality #{self.quality} -size #{tiled_width}x#{tiled_height} tile:#{fn} #{tiled}"    
     # image.run_command "composite -strip -quality #{self.quality} -geometry #{tiled_width}x#{tiled_height}+#{border}+#{border} #{tiled} #{bg} #{final}"
@@ -104,13 +104,16 @@ class Photo < ActiveRecord::Base
     tiled_image = Magick::Image.new(tiled_width, tiled_height) do
       self.background_color = 'red'
     end
-    # tiled_image.composite_tiled!(Magick::Image.read(cropped)[0]) (rmagick 2.x)
-    tiled_image.composite!(Magick::Image.read(cropped)[0], 0, 0, Magick::OverCompositeOp)
-    tiled_image.composite!(Magick::Image.read(cropped)[0], width, 0, Magick::OverCompositeOp)
-    tiled_image.composite!(Magick::Image.read(cropped)[0], 0, height, Magick::OverCompositeOp)
-    tiled_image.composite!(Magick::Image.read(cropped)[0], width, height, Magick::OverCompositeOp)
+
+    cropped_image = Magick::Image.read(cropped)[0]
+    tiled_image.composite!(cropped_image, 0, 0, Magick::OverCompositeOp)
+    tiled_image.composite!(cropped_image, width, 0, Magick::OverCompositeOp)
+    tiled_image.composite!(cropped_image, 0, height, Magick::OverCompositeOp)
+    tiled_image.composite!(cropped_image, width, height, Magick::OverCompositeOp)
     
-    # apply tiled image over background
+    # in rmagick 2.x we may use tiled_image.composite_tiled!(Magick::Image.read(cropped)[0])
+    
+    # apply tiled image over loaded background
     image = Magick::Image.read(bg)[0]
     image.composite!(tiled_image, border, border, Magick::OverCompositeOp)
     
