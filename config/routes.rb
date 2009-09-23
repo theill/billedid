@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :photos, :only => [:new, :create, :edit, :update, :show], :member => {:download => :get}
+  map.resources :pixum, :only => [:new]
   
   map.root :controller => "photos", :action => "new"
 	
