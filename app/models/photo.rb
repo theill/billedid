@@ -32,7 +32,7 @@ class Photo < ActiveRecord::Base
   # end
 
   def exists?
-    File.exists?("#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}") && !Rails.env.development?
+    File.exists?("#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}") #&& !Rails.env.development?
   end
   
   def generate

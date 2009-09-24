@@ -8,6 +8,14 @@ if (/AppleWebKit|MSIE/.test(navigator.userAgent)) {
 	});
 }
 
+Event.addBehavior({
+	'.button': function(btn) {
+		btn.onclick = function() {
+			alert('ok');
+		}
+	}
+});
+
 Event.onReady(function() {
 	var pageTracker = _gat._getTracker("UA-869742-15");
 	pageTracker._trackPageview();

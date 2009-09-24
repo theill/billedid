@@ -1,20 +1,18 @@
 <div class="content">
 	<h1>Dit foto er færdigt!</h1>
 
-	<div class="preview-img"><%= link_to(image_tag(formatted_photo_path(@photo, 'jpg'), :alt => 'Download det færdige billede'), :action => :download ) %></div>
+	<div class="preview-img"><%= link_to(image_tag(photo_path(@photo, :format => 'jpg'), :alt => 'Download det færdige billede', :width => 400, :height => 300), download_photo_path(@photo)) %></div>
 	<p class="complete">
-		Dit foto er nu færdigt og du kan <%= link_to("hente det ned", :action => :download) %>
-		på din computer. 
-		
-		<%= link_to(image_tag('/images/buttons/download.png', :alt => 'Download det færdige billede'), {:action => :download}, {:class => 'download', :title => 'Download dit færdige foto'}) %>
-		
-		<p>
-			<b>NYT</b> Køb dit billede hos PIXUM nu for <%= link_to('kun 22,- DKK inkl. forsendelse', new_pixum_path) %>.
-		</p>
+		Dit gratis foto er nu færdigt og du kan hente det ned på din computer
+		og printe det ud.
 	</p>
-	<p>	
-		Herefter kan du printe det ud på din egen printer eller 
-		du kan bruge en online-fremkalde service såsom <a href="http://www.pixum.dk/" rel="external" target="_blank">pixum</a> 
-		eller <a href="https://asp.photoprintit.de/microsite/10021/" rel="external" target="_blank">Bilka fotoservice</a>.
+	<p>
+		Har du ikke mulighed for selv at printe det kan du også vælge at
+		købe dit billede hos PIXUM <%= link_to('kun 22,- DKK inkl. forsendelse', new_pixum_path) %>
+		med det samme.
+	</p>
+	<p class="buttons">
+		<%= link_to(image_tag('/images/buttons/buy.png', :alt => 'Køb billede hos PIXUM'), new_pixum_path, {:class => 'buy', :title => 'Køb billede hos PIXUM'}) %> 
+		<%= link_to(image_tag('/images/buttons/download.png', :alt => 'Download det færdige billede'), download_photo_path(@photo), {:class => 'download', :title => 'Download dit færdige foto'}) %>
 	</p>
 </div>
