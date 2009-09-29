@@ -16,6 +16,10 @@
 			<%= javascript_include_tag 'prototype-min', 'effects-min', 'dragdrop-min', 'controls-min', 'lowpro.min', 'builder-min', 'application', :cache => true %>
 			<%= javascript_include_tag 'cropper/cropper' %>
 			<script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
+			<script type="text/javascript">
+			var userflyHost = (("https:" == document.location.protocol) ? "https://secure.userfly.com" : "http://asset.userfly.com");
+			document.write(unescape("%3Cscript src='" + userflyHost + "/users/3543/userfly.js' type='text/javascript'%3E%3C/script%3E"));
+			</script>			
 		<%- end -%>
 	</head>
 	<body>
