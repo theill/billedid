@@ -1,6 +1,38 @@
 html {
-	background: #dbf1f9 url( /images/backgrounds/bg-top.png?200901261123 ) 0 0 repeat-x;
+	background: #dbf1f9 url(/images/backgrounds/bg-top.png) 0 0 repeat-x;
 	margin: 0;
+}
+
+.error {
+	background-color: red;
+	color: white;
+	line-height: 40px;
+	padding: 20px;
+	display: inline;
+}
+
+.notice {
+	background-color: green;
+	color: white;
+	line-height: 40px;
+	padding: 20px;
+	display: inline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	letter-spacing: -1px;
+}
+
+h1 span {
+	background-color: #333;
+	color: #fff;
+	font-size: 80%;
+	padding: 5px;
+	font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+}
+
+h4 {
+	color: #666;
 }
 
 body {
@@ -19,7 +51,6 @@ body div.content a {
 	color: #3184c4;
 }
 
-
 body div#main div.content ul {
 	margin-left: 0;
 } 
@@ -27,7 +58,7 @@ body div#main div.content li {
 	list-style: none;
 	margin: 0;
 	padding: 0 0 0 12px;
-	background: transparent url( /images/bullet.png?200901261123 ) 0 4px no-repeat;
+	background: transparent url(/images/bullet.png) 0 4px no-repeat;
 }
 
 div#header {
@@ -232,5 +263,4 @@ a.download, a.buy {
 	width: 126px;
 	margin: 1em 0 3em;
 }	
-	
 	

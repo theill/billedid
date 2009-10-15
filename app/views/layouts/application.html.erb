@@ -27,8 +27,8 @@
 		</div>
 		<div id="main">
 			<div class="content">
-				<%= render_error( flash[:error] ) %>
-				<%= render_notice( flash[:notice] ) %>
+				<%= content_tag('div', flash[:error], :class => 'error') if flash[:error] %>
+				<%= content_tag('div', flash[:notice], :class => 'notice') if flash[:notice] %>
 			</div>
 			<%= yield %>
 			<div id="guy"></div>

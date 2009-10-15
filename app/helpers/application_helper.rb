@@ -23,16 +23,6 @@ module ApplicationHelper
 	  tag :meta, { :name => 'description', :content => h(meta_description) } unless meta_description.blank?
 	end
 	
-	# renders error messages in accordance with design
-	def render_error(error = nil)
-		content_tag('div', error, :class => 'error') unless error.blank?
-	end
-	
-	# renders notice messages in accordnace with design
-	def render_notice(notice = nil)
-		content_tag('div', notice, :class => 'notice') unless notice.blank?
-	end
-
 	private
 	
 	def find_active_step( path, session = nil )

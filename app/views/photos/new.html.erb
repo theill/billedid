@@ -6,8 +6,8 @@
 	<div class="cols">
 		<div class="lcol">
 			<% form_for(@photo, :html => { :multipart => true }) do |f| %>
-				<h2>Vælg dit billede</h2>
-			  	<fieldset>
+				<h1><span><b>1</b>/3</span> Vælg dit billede</h1>
+			  <fieldset>
 					<%= f.file_field :uploaded_data %>
 				</fieldset>  
 				<fieldset class="controls">

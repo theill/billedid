@@ -28,11 +28,11 @@ class PhotosController < ApplicationController
       if @photo.save
         format.html do 
           session[:photo_id] = @photo.id
-          redirect_to edit_photo_path(@photo)
+          redirect_to edit_photo_url(@photo)
         end
       else
         flash[:error] = "Du skal angive et foto i enten 'jpg' eller 'png' format"
-        format.html { render :action => "new" }
+        format.html { render :action => :new }
       end
     end
   end
