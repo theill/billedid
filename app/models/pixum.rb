@@ -65,8 +65,6 @@ class Pixum
       #   http.request(req)
       # end
       
-      
-      
       # req = Net::HTTP::Post.new(url.path)
       # req.set_form_data({'content-type'=>'text/plain', 'charset'=>'utf-8'}, ';')
       # res = Net::HTTP.new(url.host, url.port).start {|http| http.request(req) }
