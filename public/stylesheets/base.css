@@ -72,7 +72,7 @@ div#header {
 
 	div#header a.home {
 		position: absolute;
-		background: transparent url( /images/logo-bg.png?200901261123 ) 0 0 no-repeat;
+		background: transparent url(/images/logo-bg.png) 0 0 no-repeat;
 		top: 0;
 		left: 0;
 		width: 352px;
@@ -87,14 +87,14 @@ div#header {
 		position: absolute;
 		bottom: -1px;
 		left: 30px;
-		background: transparent url( /images/navigation.png?200901261347 ) 0 0 no-repeat;
+		background: transparent url(/images/navigation.png) 0 0 no-repeat;
 		width: 441px;
 		height: 117px;
 		z-index: 10000;
 	}
 	
-		div#header ul.nl.active_step_1 {	background-position: 0 -117px; }
-		div#header ul.nl.active_step_2 {	background-position: 0 -234px; }
+		div#header ul.nl.active_step_1 { background-position: 0 -117px; }
+		div#header ul.nl.active_step_2 { background-position: 0 -234px; }
 		div#header ul.nl.active_step_3 { background-position: 0 -351px; }
 	
 		div#header ul.nl li {
@@ -131,7 +131,7 @@ div#main {
 		right: -1px;
 		width: 276px;
 		height: 216px;
-		background: transparent url( /images/guy.png?200901261123 ) 0 0 no-repeat;
+		background: transparent url(/images/guy.png) 0 0 no-repeat;
 		z-index: 1000;
 	}
 
@@ -141,7 +141,7 @@ div#main {
 		left: -1px;
 		width: 12px;
 		height: 12px;
-		background: transparent url( /images/backgrounds/corners.png?200901261721 ) 0 0 no-repeat;
+		background: transparent url(/images/backgrounds/corners.png) 0 0 no-repeat;
 		z-index: 1000;
 	}
 	div#main div#bl {
@@ -150,7 +150,7 @@ div#main {
 		left: -1px;
 		width: 12px;
 		height: 12px;
-		background: transparent url( /images/backgrounds/corners.png?200901261721 ) 0 -36px no-repeat;
+		background: transparent url(/images/backgrounds/corners.png) 0 -36px no-repeat;
 		z-index: 1000;
 	}
 	div#main div#br {
@@ -159,7 +159,7 @@ div#main {
 		right: -1px;
 		width: 12px;
 		height: 12px;
-		background: transparent url( /images/backgrounds/corners.png?200901261721 ) 0 -24px no-repeat;
+		background: transparent url(/images/backgrounds/corners.png) 0 -24px no-repeat;
 		z-index: 1000;
 	}
 
@@ -212,19 +212,6 @@ div#footer {
 	margin: 0 auto;
 	padding: 0 0 4em;
 }
-
-	div#footer a.logo {
-		position: absolute;
-		top: 0;
-		left: 3.5em;
-		background: transparent url( /images/footer-gazebo.png?200901261123 ) 0 0 no-repeat;
-		width: 106px;
-		height: 59px;
-	}
-
-		div#footer a.logo span {
-			display: none;
-		}
 
 	div#footer div.content {
 		padding: 1em;

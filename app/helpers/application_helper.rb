@@ -26,15 +26,15 @@ module ApplicationHelper
 	private
 	
 	def find_active_step( path, session = nil )
-		case
+		active_step = case
 		when session[:photo_id] && path == photo_path(session[:photo_id])
-			active_step = 3
+			3
 		when session[:photo_id] && path == edit_photo_path(session[:photo_id])
-			active_step = 2
+			2
 		when path == '/' || path == new_photo_path
-			active_step = 1
+			1
 		else
-			active_step = 0
+			0
 		end
 	end
 

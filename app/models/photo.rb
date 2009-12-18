@@ -67,7 +67,7 @@ class Photo < ActiveRecord::Base
     # 1200 / 10 = 120 pixels/cm => * 4.5 = 540 pixels
     # width, height = 431, 540
     width, height = 413, 531
-		tiled_width, tiled_height = width * 2, height * 2
+    tiled_width, tiled_height = width * 2, height * 2
     
     page_width, page_height = 1600, 1200 # based on 13.6x10.2
     
@@ -103,7 +103,7 @@ class Photo < ActiveRecord::Base
     tiled_image = Magick::Image.new(tiled_width, tiled_height) do
       self.background_color = 'red'
     end
-
+    
     cropped_image = Magick::Image.read(cropped)[0]
     tiled_image.composite!(cropped_image, 0, 0, Magick::OverCompositeOp)
     tiled_image.composite!(cropped_image, width, 0, Magick::OverCompositeOp)
@@ -150,15 +150,15 @@ class Photo < ActiveRecord::Base
     elsif self.attachment_options[:storage] == :file_system
       image = Magick::Image.read(self.full_filename)[0]
     end
+    
     thumbnail = self.thumbnails.first # NASTY: must fix
-    ratio = self.width / thumbnail.width.to_f
-    # ratio = self.width / 480.0
-		
-		destination_width		= (width * ratio).to_i
-		destination_height	= (height * ratio).to_i
-		destination_x1			= (x1 * ratio).to_i
-		destination_y1			= (y1 * ratio).to_i
-		
+    ratio = self.width / 480.0 # max width of any thumbnail
+    
+    destination_width		= (width * ratio).to_i
+    destination_height	= (height * ratio).to_i
+    destination_x1			= (x1 * ratio).to_i
+    destination_y1			= (y1 * ratio).to_i
+
     # image.crop "#{destination_width}x#{destination_height}+#{destination_x1}+#{destination_y1}"
     # image.write(self.full_filename(:cropped))
     # image.run_command "mogrify -strip -quality #{self.quality} -type Grayscale #{self.full_filename(:cropped)}" if self.grayscale

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="da" lang="da">
 	<head>
-		<title>BilledID.dk - gratis pasfoto, foto til kørekort eller dankort på to minutter</title>
+		<title>BilledID - gratis pasfoto, foto til kørekort eller dankort på to minutter</title>
 		<%= render_meta_description(@meta_description) -%>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<meta http-equiv="imagetoolbar" content="no" />
@@ -20,8 +20,8 @@
 	</head>
 	<body>
 		<div id="header">
-			<a href="/" class="home" title="BilledID.dk - Lav dit eget pasfoto på et øjeblik">
-				<%= image_tag '/images/logo.png', :alt => "BilledID.dk - Lav dit eget pasfoto på et øjeblik", :size => '352x124' -%>
+			<a href="/" class="home" title="BilledID - Lav dit eget pasfoto på et øjeblik">
+				<%= image_tag 'logo.png', :alt => "BilledID - Lav dit eget pasfoto på et øjeblik", :size => '352x124' -%>
 			</a>
 			<%= render_top_menu(request.path, session) %>
 		</div>
@@ -38,7 +38,7 @@
 		</div>
 		<%- cache 'footer' do -%>
 			<div id="footer">
-				<div class="content">					
+				<div class="content">
 					&copy; 2008&ndash;<%= Date.today.year %> <%= link_to('Commanigy', 'http://commanigy.com', :title => 'Commanigy') %> og <%= link_to('Yttesen', 'http://yttesen.com') %>. Alle rettigheder forbeholdes.
 					<%= link_to( 'Fortrolighed', privacy_path, :class => 'privacy' ) %>
 				</div>

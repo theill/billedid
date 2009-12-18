@@ -36,21 +36,21 @@ class PhotosController < ApplicationController
       end
     end
   end
-
-	def edit
-		
-	end
-
+  
+  def edit
+    
+  end
+  
   # PUT /photos/1
   def update
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
         # crop *and replace* existing image
         @photo.crop(params[:width].to_i, params[:height].to_i, params[:x1].to_i, params[:y1].to_i)
-
+        
         # add id to session of our cropped image, to assist with creating menus
         session[:cropped_photo_id] = @photo.id
-
+        
         format.html { redirect_to @photo }
       else
         format.html { render :action => "edit" }
@@ -64,7 +64,7 @@ class PhotosController < ApplicationController
     redirect_to photo.public_filename(:final)
   end
 
-	# helps fixing upload issues for Safari browser
+  # helps fixing upload issues for Safari browser
   def closekeepalive
     response.headers['Connection'] = 'Close'
     render :text => ''
@@ -79,10 +79,10 @@ class PhotosController < ApplicationController
   
   def lookup_photo
     @photo = Photo.find(session[:photo_id]) unless session[:photo_id].blank?
-		unless @photo
-			flash[:notice] = 'Dit foto blev ikke fundet. Systemet sletter automatisk gamle fotos. Du kan lave et nyt med det samme.'
-			redirect_to(root_url)
-		end
+    unless @photo
+      flash[:notice] = 'Dit foto blev ikke fundet. Systemet sletter automatisk gamle fotos. Du kan lave et nyt med det samme.'
+      redirect_to(root_url)
+    end
   end
   
 end
