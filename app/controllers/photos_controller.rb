@@ -77,7 +77,7 @@ class PhotosController < ApplicationController
     
     pdf = Prawn::Document.new(:page_size => 'A4') do
       # 136mm (width of image) and 102mm (height of image)
-      image open(photo.public_filename(:final)), :width => 136.mm, :height => 102.mm, :position => :center, :vposition => :center
+      image open(photo.public_filename(:final)), :width => Foo.mm2pt(136), :height => Foo.mm2pt(102), :position => :center, :vposition => :center
     end
     
     send_data pdf.render, :filename => "billedid.pdf", :type => "application/pdf"
