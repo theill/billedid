@@ -15,4 +15,10 @@
 		<%= link_to(image_tag('/images/buttons/buy.png', :alt => 'Køb billede hos PIXUM'), new_pixum_path, {:class => 'buy', :title => 'Køb billede hos PIXUM'}) %> 
 		<%= link_to(image_tag('/images/buttons/download.png', :alt => 'Download det færdige billede'), download_photo_path(@photo), {:class => 'download', :title => 'Download dit færdige foto'}) %>
 	</p>
+	<p>
+		Når du henter billedet ned på din egen maskine skal du vælge at udskrive 
+		det som et 13x10 cm billede på din foto-printer. Har du ikke en foto-printer
+		eller kan du ikke udskrive i 13x10 bør du hente <%= link_to('PDF versionen', pdf_photo_path(@photo)) %>
+		i A4 størrelse.
+	</p>
 </div>

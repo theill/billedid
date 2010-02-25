@@ -59,11 +59,30 @@ class PhotosController < ApplicationController
   end
   
   def download
-    photo = Photo.find(params[:id])
     # send_file photo.full_filename(:final), :type => 'image/jpg', :disposition => 'attachment'
+    
+    photo = Photo.find(params[:id])
     redirect_to photo.public_filename(:final)
   end
+  
+  module Foo
+    include Prawn::Measurements
 
+    module_function :in2pt, :ft2pt, :yd2pt, :mm2pt, :cm2pt, :dm2pt, :m2pt, :pt2mm
+    module_function :ft2in, :yd2in, :cm2mm, :dm2mm, :m2mm
+  end
+
+  def pdf
+    photo = Photo.find(params[:id])
+    
+    pdf = Prawn::Document.new(:page_size => 'A4') do
+      # 136mm (width of image) and 102mm (height of image)
+      image open(photo.public_filename(:final)), :width => 136.mm, :height => 102.mm, :position => :center, :vposition => :center
+    end
+    
+    send_data pdf.render, :filename => "billedid.pdf", :type => "application/pdf"
+  end
+  
   # helps fixing upload issues for Safari browser
   def closekeepalive
     response.headers['Connection'] = 'Close'

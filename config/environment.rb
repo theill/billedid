@@ -26,6 +26,7 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   config.gem "aws-s3", :lib => "aws/s3", :version => '0.6.2'
   config.gem "hoptoad_notifier", :version => '2.1.0'
+  config.gem 'prawn', :version => '>=0.7.2'
   # config.gem "rmagick", :version => '>=1.15.17'
   # config.gem 'mime-types', :lib => 'mime/types'
 

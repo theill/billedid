@@ -1,2 +1,3 @@
 aws-s3 --version '=0.6.2'
 hoptoad_notifier --version '=2.1.0'
+prawn --version '=0.7.2'

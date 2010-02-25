@@ -11,7 +11,7 @@ module ApplicationHelper
 		end
 		
 		if (session && !session[:photo_id].blank? && !session[:cropped_photo_id].blank? && session[:photo_id] == session[:cropped_photo_id])
-			menuitems += content_tag :li, link_to( '<span>Download</span>', photo_path( session[:photo_id] ) ), :class => 'download'
+			menuitems += content_tag :li, link_to('<span>Download</span>', photo_path(session[:photo_id])), :class => 'download'
 		else
 			menuitems += content_tag :li, '<span>Download</span>', :class => 'download'
 		end
