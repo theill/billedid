@@ -19,8 +19,8 @@ module ApplicationHelper
 		content_tag :ul, menuitems, :class => "nl active_step_#{ find_active_step( path, session ) }"
 	end
 
-	def render_meta_description(meta_description)
-	  tag :meta, { :name => 'description', :content => h(meta_description) } unless meta_description.blank?
+	def render_meta_description
+	  tag :meta, { :name => 'description', :content => h(@meta_description) } unless @meta_description.blank?
 	end
 	
 	private

@@ -4,19 +4,11 @@ html {
 }
 
 .error {
-	background-color: red;
-	color: white;
-	line-height: 40px;
-	padding: 20px;
-	display: inline;
+	color: red;
 }
 
 .notice {
-	background-color: green;
-	color: white;
-	line-height: 40px;
-	padding: 20px;
-	display: inline;
+	color: green;
 }
 
 h1, h2, h3, h4, h5, h6 {

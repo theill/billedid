@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="da" lang="da">
 	<head>
-		<title>BilledID - gratis pasfoto, foto til kørekort eller dankort på to minutter</title>
-		<%= render_meta_description(@meta_description) -%>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		<title>BilledID - gratis pasfoto, foto til kørekort eller dankort på to minutter</title>
+		<%= render_meta_description -%>
 		<meta http-equiv="imagetoolbar" content="no" />
 		<meta name="google-site-verification" content="cxNhj4vgvvmgqpn-OqHmJof1RVdFP5O-k3nCNfqjrQE" />
 		<%- cache 'head-stuff' do -%>
@@ -27,10 +27,6 @@
 			<%= render_top_menu(request.path, session) %>
 		</div>
 		<div id="main">
-			<div class="content">
-				<%= content_tag('div', flash[:error], :class => 'error') if flash[:error] %>
-				<%= content_tag('div', flash[:notice], :class => 'notice') if flash[:notice] %>
-			</div>
 			<%= yield %>
 			<div id="guy"></div>
 			<div id="tl"></div>
