@@ -32,7 +32,7 @@ class Photo < ActiveRecord::Base
   # end
 
   def exists?
-    File.exists?("#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}") #&& !Rails.env.development?
+    File.exists?("#{Rails.root}/tmp/#{self.full_filename(:final)}") #&& !Rails.env.development?
   end
   
   def generate
@@ -77,16 +77,16 @@ class Photo < ActiveRecord::Base
     
     # remove final image in case it has already been generated
     if exists?
-      File.delete("#{RAILS_ROOT}/tmp/#{self.full_filename(:cropped)}")
-      File.delete("#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}")
+      File.delete("#{Rails.root}/tmp/#{self.full_filename(:cropped)}")
+      File.delete("#{Rails.root}/tmp/#{self.full_filename(:final)}")
     end
     
-    bg = "#{RAILS_ROOT}/public/images/billedid-info.png"
-    #       "#{RAILS_ROOT}/public/images/1674_azoresleaf_1600x1200.jpg",
-    #       "#{RAILS_ROOT}/public/images/1678_walenstadtberg_1600x1200.jpg",
-    #       "#{RAILS_ROOT}/public/images/1690_playkiss_1600x1200.jpg",
-    #       "#{RAILS_ROOT}/public/images/1696_afterrain_1600x1200.jpg",
-    #       "#{RAILS_ROOT}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
+    bg = "#{Rails.root}/public/images/billedid-info.png"
+    #       "#{Rails.root}/public/images/1674_azoresleaf_1600x1200.jpg",
+    #       "#{Rails.root}/public/images/1678_walenstadtberg_1600x1200.jpg",
+    #       "#{Rails.root}/public/images/1690_playkiss_1600x1200.jpg",
+    #       "#{Rails.root}/public/images/1696_afterrain_1600x1200.jpg",
+    #       "#{Rails.root}/public/images/1698_betweenthemountains_1600x1200.jpg"].first
     
     # image.run_command "convert -strip -quality #{self.quality} -size #{tiled_width}x#{tiled_height} tile:#{fn} #{tiled}"    
     # image.run_command "composite -strip -quality #{self.quality} -geometry #{tiled_width}x#{tiled_height}+#{border}+#{border} #{tiled} #{bg} #{final}"
@@ -117,7 +117,7 @@ class Photo < ActiveRecord::Base
     image.composite!(tiled_image, border, border, Magick::OverCompositeOp)
     
     if self.attachment_options[:storage] == :s3
-      fn = "#{RAILS_ROOT}/tmp/#{self.full_filename(:final)}"
+      fn = "#{Rails.root}/tmp/#{self.full_filename(:final)}"
       image.write(fn)
       AWS::S3::S3Object.store(self.full_filename(:final), open(fn), 'billedid', :access => :public_read, :content_type => 'image/jpg', :content_disposition => 'attachment')
     elsif self.attachment_options[:storage] == :file_system
@@ -130,7 +130,7 @@ class Photo < ActiveRecord::Base
     end
     
     if self.attachment_options[:storage] == :s3
-      fn = "#{RAILS_ROOT}/tmp/#{self.full_filename(:preview)}"
+      fn = "#{Rails.root}/tmp/#{self.full_filename(:preview)}"
       image.write(fn)
       AWS::S3::S3Object.store(self.full_filename(:preview), open(fn), 'billedid', :access => :public_read)
     elsif self.attachment_options[:storage] == :file_system
@@ -171,18 +171,18 @@ class Photo < ActiveRecord::Base
     end
     
     if self.attachment_options[:storage] == :s3
-      path = RAILS_ROOT + '/tmp/' + self.full_filename(:cropped)
+      path = Rails.root + '/tmp/' + self.full_filename(:cropped)
       path = path.gsub('/' + path.split('/').last, '')
       FileUtils.mkdir_p path
       
-      image.write(RAILS_ROOT + '/tmp/' + self.full_filename(:cropped)) do
+      image.write(Rails.root + '/tmp/' + self.full_filename(:cropped)) do
         self.quality = quality
       end
       
-      AWS::S3::S3Object.store(self.full_filename(:cropped), open(RAILS_ROOT + '/tmp/' + self.full_filename(:cropped)), 'billedid', :access => :public_read)
+      AWS::S3::S3Object.store(self.full_filename(:cropped), open(Rails.root + '/tmp/' + self.full_filename(:cropped)), 'billedid', :access => :public_read)
       
       # remove final image in case it has already been generated
-      File.delete(RAILS_ROOT + '/tmp/' + self.full_filename(:final)) if exists?
+      File.delete(Rails.root + '/tmp/' + self.full_filename(:final)) if exists?
       
     elsif self.attachment_options[:storage] == :file_system
       image.write(self.full_filename(:cropped)) do

@@ -31,7 +31,7 @@ class PhotosController < ApplicationController
           redirect_to edit_photo_url(@photo)
         end
       else
-        flash[:error] = "Du skal angive et foto i enten 'jpg' eller 'png' format"
+        flash[:error] = "Du skal angive et foto i enten JPG eller PNG format"
         format.html { render :action => :new }
       end
     end
