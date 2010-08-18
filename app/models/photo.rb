@@ -171,18 +171,18 @@ class Photo < ActiveRecord::Base
     end
     
     if self.attachment_options[:storage] == :s3
-      path = Rails.root + '/tmp/' + self.full_filename(:cropped)
+      path = "#{Rails.root}/tmp/#{self.full_filename(:cropped)}"
       path = path.gsub('/' + path.split('/').last, '')
       FileUtils.mkdir_p path
       
-      image.write(Rails.root + '/tmp/' + self.full_filename(:cropped)) do
+      image.write("#{Rails.root}/tmp/#{self.full_filename(:cropped)}") do
         self.quality = quality
       end
       
-      AWS::S3::S3Object.store(self.full_filename(:cropped), open(Rails.root + '/tmp/' + self.full_filename(:cropped)), 'billedid', :access => :public_read)
+      AWS::S3::S3Object.store(self.full_filename(:cropped), open("#{Rails.root}/tmp/#{self.full_filename(:cropped)}"), 'billedid', :access => :public_read)
       
       # remove final image in case it has already been generated
-      File.delete(Rails.root + '/tmp/' + self.full_filename(:final)) if exists?
+      File.delete("#{Rails.root}/tmp/#{self.full_filename(:final)}") if exists?
       
     elsif self.attachment_options[:storage] == :file_system
       image.write(self.full_filename(:cropped)) do

@@ -51,7 +51,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_billedid_session',
+    :key => '_billedid_session',
     :secret      => '10f4aff12dde495cc67605c54cbfb19713af55f56b928231a7d3bcf72ee1f855e513aa015e0c95de4d9fbf20ce7d283c8d4e7e717a6049a4b2914feb143929c8'
   }
 
