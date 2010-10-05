@@ -1,6 +1,9 @@
 if (/AppleWebKit|MSIE/.test(navigator.userAgent)) {
 	Event.addBehavior({
 		'form:submit' : function(e) {
+			$('submit-button').writeAttribute("disabled", "disabled");
+			$('spinner').show();
+			
 			if (Event.element(e).getElementsBySelector("input[file]")) {
 				new Ajax.Request("/ping/close", { asynchronous:false });
 			}

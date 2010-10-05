@@ -18,7 +18,7 @@
 					<%= f.check_box :grayscale %> <%= f.label :grayscale, 'Jeg ønsker billederne i sort/hvid' %><br />
 				</fieldset>
 				<fieldset>
-					<%= image_submit_tag '/images/buttons/adjust.png', :class => 'button', :alt => 'Tilpas billede' %> 
+					<img src="/images/spinner.gif" class="spinning" style="display: none" id="spinner" alt=""> <%= image_submit_tag '/images/buttons/adjust.png', :class => 'button', :id => 'submit-button', :alt => 'Tilpas billede' %> 
 				</fieldset>
 			<% end %>
 		</div>

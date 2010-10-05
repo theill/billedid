@@ -242,4 +242,8 @@ a.download, a.buy {
 	width: 126px;
 	margin: 1em 0 3em;
 }	
-	
+
+.spinning {
+	float: right;
+	margin: 10px 10px 0 0;
+}

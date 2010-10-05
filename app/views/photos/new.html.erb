@@ -17,7 +17,7 @@
 				<%= content_tag('div', flash[:error], :class => 'error') if flash[:error] %>
 				<%= content_tag('div', flash[:notice], :class => 'notice') if flash[:notice] %>
 				<fieldset class="controls">
-					<%= image_submit_tag '/images/buttons/upload.png', :class => 'button', :alt => 'Upload billede' %> 
+					<img src="/images/spinner.gif" class="spinning" style="display: none" id="spinner" alt=""> <%= image_submit_tag '/images/buttons/upload.png', :class => 'button', :id => 'submit-button', :alt => 'Upload billede' %> 
 				</fieldset>
 			<% end %>
 		</div>
