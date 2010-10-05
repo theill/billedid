@@ -45,13 +45,20 @@ class PhotosController < ApplicationController
   def update
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
-        # crop *and replace* existing image
-        @photo.crop(params[:width].to_i, params[:height].to_i, params[:x1].to_i, params[:y1].to_i)
+        begin
+          # crop *and replace* existing image
+          @photo.crop(params[:width].to_i, params[:height].to_i, params[:x1].to_i, params[:y1].to_i)
         
-        # add id to session of our cropped image, to assist with creating menus
-        session[:cropped_photo_id] = @photo.id
-        
-        format.html { redirect_to @photo }
+          # add id to session of our cropped image, to assist with creating menus
+          session[:cropped_photo_id] = @photo.id
+          
+          format.html { redirect_to @photo }
+        rescue Magick::ImageMagickError => x
+          Rails.logger.error("Failed to crop image: #{x}")
+          
+          flash[:error] = "Der opstod en fejl ved beskæring af billedet. Det kan skyldes, at billedet du uploadede er for stort."
+          format.html { render :action => "edit" }
+        end
       else
         format.html { render :action => "edit" }
       end
