@@ -1,0 +1,14 @@
+development:
+  bucket_name: billedid
+  access_key_id: x
+  secret_access_key: x
+
+test:
+  bucket_name: billedid
+  access_key_id: x
+  secret_access_key: x
+
+production:
+  bucket_name: billedid
+  access_key_id: x
+  secret_access_key: x
